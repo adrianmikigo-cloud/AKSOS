@@ -1,269 +1,80 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS | AK BAU EMERGENCY 24/7</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --black: #000000;
-            --neon-yellow: #f1ff00;
-            --signal-red: #ff0000;
-            --white: #ffffff;
-            --font-main: 'Montserrat', sans-serif;
-            --font-heading: 'Oswald', sans-serif;
-        }
-
-        body {
-            background: #050505; color: var(--white);
-            font-family: var(--font-main); margin: 0;
-            display: flex; justify-content: center;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .page-wrapper {
-            max-width: 500px; width: 100%; background: var(--black);
-            min-height: 100vh; border-left: 1px solid #1a1a1a; border-right: 1px solid #1a1a1a;
-            box-shadow: 0 0 60px rgba(0,0,0,1);
-        }
-
-        /* TICKER */
-        .alarm-ticker {
-            background: var(--signal-red); color: white; padding: 12px 0;
-            font-weight: 700; overflow: hidden; white-space: nowrap;
-            font-family: var(--font-heading); text-transform: uppercase;
-        }
-        .ticker-content { display: inline-block; animation: marquee 25s linear infinite; }
-        @keyframes marquee { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
-
-        /* HEADER */
-        header { text-align: center; padding: 40px 20px 20px; }
-        .brand { font-family: var(--font-heading); font-size: 48px; line-height: 1; }
-        .ak { color: var(--signal-red); }
-        .bau { color: var(--neon-yellow); }
-        .emergency-tag { font-size: 11px; letter-spacing: 6px; opacity: 0.6; margin-top: 8px; text-transform: uppercase; }
-
-        .status-box {
-            display: inline-flex; align-items: center; margin-top: 25px;
-            font-size: 13px; font-weight: 700; color: #00ff41;
-            background: rgba(0, 255, 65, 0.05); padding: 8px 16px; border-radius: 30px;
-        }
-        .pulse {
-            width: 8px; height: 8px; background: #00ff41; border-radius: 50%;
-            margin-right: 10px; box-shadow: 0 0 10px #00ff41; animation: pulse-ring 2s infinite;
-        }
-        @keyframes pulse-ring { 0% { transform: scale(0.95); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.5; } 100% { transform: scale(0.95); opacity: 1; } }
-
-        /* FORM */
-        .form-container { padding: 20px; }
-        .form-card { background: #0f0f0f; padding: 30px 20px; border-radius: 24px; border: 1px solid #222; }
-        h2 { color: var(--neon-yellow); font-family: var(--font-heading); font-size: 28px; margin: 0; }
-        .sub-h { font-size: 14px; color: #888; margin: 5px 0 25px 0; }
-
-        input, select, textarea {
-            width: 100%; padding: 16px; margin-bottom: 12px;
-            background: #000; border: 1px solid #333; color: white; border-radius: 12px;
-            font-family: var(--font-main); box-sizing: border-box; font-size: 15px;
-        }
-        input:focus { border-color: var(--neon-yellow); outline: none; }
-
-        .submit-btn {
-            width: 100%; padding: 20px; background: var(--neon-yellow); color: black;
-            border: none; font-weight: 900; font-size: 16px; cursor: pointer;
-            border-radius: 12px; text-transform: uppercase; transition: 0.3s;
-            font-family: var(--font-heading);
-        }
-
-        /* TILES (Nowy Wygląd) */
-        .tiles-section { padding: 0 20px 40px; display: flex; flex-direction: column; gap: 15px; }
-        .tile {
-            display: flex; align-items: center; background: linear-gradient(145deg, #111, #080808);
-            padding: 20px; border-radius: 18px; border: 1px solid #1a1a1a; transition: all 0.3s ease;
-        }
-        .tile:hover { border-color: var(--neon-yellow); transform: translateX(8px); }
-        .tile-icon-wrapper {
-            min-width: 60px; height: 60px; background: rgba(255, 255, 255, 0.03);
-            border-radius: 14px; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; margin-right: 20px;
-        }
-        .tile-h { margin: 0; font-family: var(--font-heading); font-size: 20px; color: var(--neon-yellow); text-transform: uppercase; }
-        .tile-p { margin: 4px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
-
-        /* PHONE & LANG */
-        .call-section { padding: 30px 20px; text-align: center; }
-        .call-btn {
-            display: block; background: var(--signal-red); color: white;
-            text-decoration: none; padding: 25px; border-radius: 18px;
-            font-size: 28px; font-weight: 900; font-family: var(--font-heading); transition: 0.3s;
-        }
-        .bottom-lang-switch { display: flex; justify-content: center; gap: 15px; padding: 20px; border-top: 1px solid #111; margin-top: 20px; }
-        .lang-btn {
-            background: #111; border: 1px solid #333; color: #666; padding: 12px 25px; 
-            cursor: pointer; font-weight: 700; border-radius: 10px; transition: 0.3s;
-        }
-        .lang-btn.active { border-color: var(--neon-yellow); color: var(--neon-yellow); background: rgba(241, 255, 0, 0.1); }
-
-        footer { text-align: center; padding: 20px; font-size: 11px; color: #444; }
-        #status-msg { display: none; margin-top: 20px; padding: 15px; border-radius: 12px; text-align: center; font-weight: 700; }
-    </style>
+    <title>Test NTFY</title>
 </head>
 <body>
 
-<div class="page-wrapper">
-    <div class="alarm-ticker"><div class="ticker-content" id="ticker-text"></div></div>
-
-    <header>
-        <div class="brand"><span class="ak">AK</span><span class="bau">BAU</span><div class="emergency-tag">Emergency Unit</div></div>
-        <div class="status-box"><div class="pulse"></div><span id="status-text"></span></div>
-    </header>
-
-    <div class="form-container">
-        <div class="form-card">
-            <h2 id="h-title"></h2>
-            <p class="sub-h" id="h-sub"></p>
-            <form id="sos-form" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
-                <input type="hidden" name="_cc" value="adrianmikulewicz@gmail.com">
-                <input type="text" name="name" id="f-name" required>
-                <input type="tel" name="phone" id="f-phone" required>
-                <select name="type" id="f-select">
-                    <option value="Water"></option><option value="Car"></option>
-                    <option value="Electric"></option><option value="Other"></option>
-                </select>
-                <textarea name="message" id="f-msg" rows="3" required></textarea>
-                <button type="submit" id="submit-btn" class="submit-btn"></button>
-            </form>
-            <div id="status-msg"></div>
-        </div>
-    </div>
-
-    <div class="call-section">
-        <p style="color: var(--signal-red); font-weight: 700; font-size: 13px; margin-bottom: 12px;" id="call-info"></p>
-        <a href="tel:017684916817" class="call-btn">📞 0176 84916817</a>
-    </div>
-
-    <section class="tiles-section">
-        <div class="tile">
-            <div class="tile-icon-wrapper">💧</div>
-            <div class="tile-text"><h3 class="tile-h" id="t1-h"></h3><p class="tile-p" id="t1-p"></p></div>
-        </div>
-        <div class="tile">
-            <div class="tile-icon-wrapper">🚗</div>
-            <div class="tile-text"><h3 class="tile-h" id="t2-h"></h3><p class="tile-p" id="t2-p"></p></div>
-        </div>
-        <div class="tile">
-            <div class="tile-icon-wrapper">⚡</div>
-            <div class="tile-text"><h3 class="tile-h" id="t3-h"></h3><p class="tile-p" id="t3-p"></p></div>
-        </div>
-    </section>
-
-    <div class="bottom-lang-switch">
-        <button id="btn-pl" class="lang-btn" onclick="setLang('pl')">Polski</button>
-        <button id="btn-de" class="lang-btn" onclick="setLang('de')">Deutsch</button>
-    </div>
-
-    <footer>📍 Winsener Landstraße 4, 21217 Seevetal | © 2026 AK BAU</footer>
-</div>
-
-<script>
-    const langData = {
-        de: {
-            ticker: "+++ TECHNISCHER NOTDIENST 24/7 +++ SCHNELLE ANFAHRT +++ SEEVETAL +++ HAMBURG +++ REPARATUR VOR ORT +++",
-            status: "STATUS: ONLINE / VERFÜGBAR",
-            title: "NOTFALL MELDEN", sub: "Wir rufen in 5 Minuten zurück", btn: "SOS-ANFRAGE SENDEN",
-            name: "Name", phone: "Telefonnummer", msg: "Problem beschreiben...", call: "ODER SOFORT ANRUFEN:",
-            success: "Gesendet! Wir rufen gleich an.", error: "Fehler! Bitte rufen Sie an.",
-            opt1: "💧 Sanitär / Wasserschaden", opt2: "🚗 Auto SOS / Pannenhilfe", opt3: "⚡ Strom / Elektrik", opt4: "Anderer Notfall",
-            t1h: "WASSERSCHADEN", t1p: "Rohrbruch, Wasser abpumpen, schnelle Abdichtung.",
-            t2h: "AUTO SOS", t2p: "Pannenhilfe, Motorschaden, mobiler Mechaniker 24h.",
-            t3h: "ELEKTRIK", t3p: "Stromausfall, Kurzschluss, Sicherungen und Reparaturen."
-        },
-        pl: {
-            ticker: "+++ POGOTOWIE TECHNICZNE 24/7 +++ SZYBKI DOJAZD +++ SEEVETAL +++ HAMBURG +++ NAPRAWA NA MIEJSCU +++",
-            status: "STATUS: DOSTĘPNI / ONLINE",
-            title: "ZGŁOŚ AWARIĘ", sub: "Oddzwonimy w ciągu 5 minut", btn: "WYŚLIJ ZGŁOSZENIE SOS",
-            name: "Imię", phone: "Telefon", msg: "Opisz problem...", call: "LUB ZADZWOŃ NATYCHMIAST:",
-            success: "Zgłoszenie wysłane! Zaraz zadzwonimy.", error: "Błąd! Zadzwoń do nas.",
-            opt1: "💧 Hydraulika / Zalanie", opt2: "🚗 Auto SOS / Pomoc Drogowa", opt3: "⚡ Prąd / Elektryka", opt4: "Inna awaria",
-            t1h: "ZALANIA", t1p: "Pęknięte rury, pompowanie wody, uszczelnianie instalacji.",
-            t2h: "AUTO SOS", t2p: "Pomoc drogowa, awarie silnika, mobilny mechanik 24h.",
-            t3h: "ELEKTRYKA", t3p: "Brak prądu, spięcia, wymiana bezpieczników i naprawy."
-        }
-    };
-
-    let currentLang = 'de';
-
-    function setLang(lang) {
-        currentLang = lang;
-        document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
-        document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-        const d = langData[lang];
-        document.getElementById('ticker-text').textContent = d.ticker;
-        document.getElementById('status-text').textContent = d.status;
-        document.getElementById('h-title').textContent = d.title;
-        document.getElementById('h-sub').textContent = d.sub;
-        document.getElementById('submit-btn').textContent = d.btn;
-        document.getElementById('f-name').placeholder = d.name;
-        document.getElementById('f-phone').placeholder = d.phone;
-        document.getElementById('f-msg').placeholder = d.msg;
-        document.getElementById('call-info').textContent = d.call;
-        const sel = document.getElementById('f-select');
-        sel.options[0].text = d.opt1; sel.options[1].text = d.opt2;
-        sel.options[2].text = d.opt3; sel.options[3].text = d.opt4;
-        document.getElementById('t1-h').textContent = d.t1h; document.getElementById('t1-p').textContent = d.t1p;
-        document.getElementById('t2-h').textContent = d.t2h; document.getElementById('t2-p').textContent = d.t2p;
-        document.getElementById('t3-h').textContent = d.t3h; document.getElementById('t3-p').textContent = d.t3p;
-    }
-
-    setLang('de');
-
-    const form = document.getElementById('sos-form');
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('submit-btn');
-        const status = document.getElementById('status-msg');
+    <h1>Test Formularza SOS</h1>
+    
+    <form id="testForm" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
         
-        const nName = document.getElementById('f-name').value;
-        const nPhone = document.getElementById('f-phone').value;
-        const nType = document.getElementById('f-select').value;
-        const nMsg = document.getElementById('f-msg').value;
+        Imię: <br>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        Telefon: <br>
+        <input type="tel" id="phone" name="phone" required><br><br>
+        
+        Opis problemu: <br>
+        <textarea id="message" name="message" required></textarea><br><br>
+        
+        <button type="submit" id="submitBtn">WYŚLIJ TEST</button>
+    </form>
 
-        btn.disabled = true; btn.textContent = "...";
+    <p id="status"></p>
 
-        // --- WYSYŁKA NTFY.SH (POWIADOMIENIE PUSH) ---
-        fetch('https://ntfy.sh/akbau_emergency_2026', {
-            method: 'POST',
-            body: `Klient: ${nName}\nTel: ${nPhone}\nTyp: ${nType}\nOpis: ${nMsg}`,
-            headers: {
-                'Title': '🚨 SOS: NOWE ZGŁOSZENIE AK BAU',
-                'Priority': '5',
-                'Tags': 'rotating_light,phone',
-                'Actions': `view, ZADZWOŃ TERAZ, tel:${nPhone}`
-            }
-        }).catch(err => console.log("Ntfy error ignored"));
+    <script>
+        const form = document.getElementById('testForm');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const status = document.getElementById('status');
+            const btn = document.getElementById('submitBtn');
+            
+            // Pobieramy dane z pól
+            const valName = document.getElementById('name').value;
+            const valPhone = document.getElementById('phone').value;
+            const valMsg = document.getElementById('message').value;
 
-        // --- WYSYŁKA EMAIL (FORMSUBMIT) ---
-        try {
-            const res = await fetch(form.action, {
+            status.textContent = "Wysyłanie...";
+            btn.disabled = true;
+
+            // --- 1. WYSYŁKA DO NTFY (Powiadomienie na telefon) ---
+            // Upewnij się, że w apce ntfy masz kanał: akbau_emergency_2026
+            fetch('https://ntfy.sh/akbau_emergency_2026', {
                 method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            });
-            if (res.ok) {
-                status.style.display = "block";
-                status.style.color = "#00ff41";
-                status.textContent = langData[currentLang].success;
-                form.reset();
-            } else { throw new Error(); }
-        } catch {
-            status.style.display = "block";
-            status.style.color = "#ff4d4d";
-            status.textContent = langData[currentLang].error;
-        } finally {
-            btn.disabled = false;
-            btn.textContent = langData[currentLang].btn;
-        }
-    });
-</script>
+                body: `NOWE ZGŁOSZENIE!\nImię: ${valName}\nTel: ${valPhone}\nOpis: ${valMsg}`,
+                headers: {
+                    'Title': '⚠️ TEST SOS',
+                    'Priority': '5',
+                    'Tags': 'warning,phone',
+                    'Actions': `view, ZADZWOŃ, tel:${valPhone}`
+                }
+            }).then(() => console.log("NTFY poszło"))
+              .catch(err => console.error("Błąd NTFY:", err));
+
+            // --- 2. WYSYŁKA DO GMAILA ---
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    status.textContent = "SUKCES! Sprawdź telefon i e-mail.";
+                    form.reset();
+                } else {
+                    status.textContent = "Błąd e-mail, ale sprawdź NTFY.";
+                }
+            } catch (err) {
+                status.textContent = "Błąd połączenia.";
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    </script>
+
 </body>
 </html>
