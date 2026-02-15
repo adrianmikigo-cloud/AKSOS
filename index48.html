@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS | AK BAU EMERGENCY 24/7</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="emergency-body">
+
+    <div class="alarm-ticker">
+        <div class="ticker-content" data-i18n="ticker_text">
+            +++ POGOTOWIE TECHNICZNE 24/7 +++ SZYBKI DOJAZD +++ SEEVETAL +++ HAMBURG +++ NAPRAWA NA MIEJSCU +++ ZADZWOŃ TERAZ +++
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        
+        <header class="vertical-header">
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang="pl">PL</button>
+                <button class="lang-btn" data-lang="de">DE</button>
+            </div>
+            <div class="brand">
+                <span class="ak">AK</span><span class="bau">BAU</span>
+                <div class="emergency-tag">EMERGENCY UNIT</div>
+            </div>
+            <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span data-i18n="status_online">STATUS: ONLINE / DOSTĘPNI</span>
+            </div>
+        </header>
+
+        <section class="quick-form-section">
+            <div class="form-container">
+                <h2 data-i18n="form_head">ZGŁOŚ AWARIĘ</h2>
+                <p data-i18n="form_sub">Oddzwonimy w ciągu 5 minut</p>
+                
+                <form action="https://formsubmit.co/adrianmikigo@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="NOWE ZGŁOSZENIE SOS - AK BAU!">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://adrianmiki.github.io/akbau/">
+
+                    <input type="text" name="name" id="f-name" placeholder="Imię" required>
+                    <input type="tel" name="phone" placeholder="Numer telefonu" required>
+                    
+                    <select name="type" class="emergency-select">
+                        <option value="water" data-i18n="opt_water">💧 Hydraulika / Zalanie</option>
+                        <option value="car" data-i18n="opt_car">🚗 Serwis Aut / SOS Drogowe</option>
+                        <option value="elec" data-i18n="opt_elec">⚡ Prąd / Elektryka</option>
+                        <option value="other" data-i18n="opt_other">Inna nagła awaria</option>
+                    </select>
+
+                    <textarea name="message" id="f-msg" rows="3" placeholder="Opisz problem..."></textarea>
+                    
+                    <button type="submit" class="sos-submit-btn" data-i18n="form_send">WYŚLIJ ZGŁOSZENIE SOS</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="phone-call-section">
+            <div class="call-box">
+                <p data-i18n="call_immediate">LUB ZADZWOŃ NATYCHMIAST:</p>
+                <a href="tel:017684916817" class="giant-phone-btn">
+                    📞 0176 84916817
+                </a>
+                <span class="availability" data-i18n="open_24h">Biuro czynne 24h / 7 dni w tygodniu</span>
+            </div>
+        </section>
+
+        <section class="tiles-section">
+            <div class="tile">
+                <div class="tile-icon">💧</div>
+                <div class="tile-text">
+                    <h3 data-i18n="serv_water_h">ZALANIA</h3>
+                    <p data-i18n="serv_water_d">Pęknięte rury, pompowanie wody, uszczelnianie.</p>
+                </div>
+            </div>
+            <div class="tile">
+                <div class="tile-icon">🚗</div>
+                <div class="tile-text">
+                    <h3 data-i18n="serv_car_h">AUTO SOS</h3>
+                    <p data-i18n="serv_car_d">Pomoc drogowa, awarie silnika, mobilny warsztat.</p>
+                </div>
+            </div>
+            <div class="tile">
+                <div class="tile-icon">⚡</div>
+                <div class="tile-text">
+                    <h3 data-i18n="serv_elec_h">ELEKTRYKA</h3>
+                    <p data-i18n="serv_elec_d">Brak prądu, spięcia, wymiana bezpieczników.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="simple-footer">
+            <p>📍 Winsener Landstraße 4, 21217 Seevetal</p>
+            <p>© 2026 AK BAU EMERGENCY GROUP</p>
+        </footer>
+
+    </div>
+
+    <script src="js/translations.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
