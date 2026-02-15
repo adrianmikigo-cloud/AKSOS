@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,6 @@
     <style>
         :root {
             --black: #000000;
-            --dark-grey: #121212;
             --neon-yellow: #f1ff00;
             --signal-red: #ff0000;
             --white: #ffffff;
@@ -17,26 +16,26 @@
         }
 
         body {
-            background: #080808;
+            background: #050505;
             color: var(--white);
             font-family: var(--font-main);
             margin: 0;
             display: flex;
             justify-content: center;
-            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         .page-wrapper {
-            max-width: 550px;
+            max-width: 500px;
             width: 100%;
             background: var(--black);
             min-height: 100vh;
             border-left: 1px solid #1a1a1a;
             border-right: 1px solid #1a1a1a;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            box-shadow: 0 0 60px rgba(0,0,0,1);
         }
 
-        /* Górny pasek alarmowy */
+        /* TICKER */
         .alarm-ticker {
             background: var(--signal-red);
             color: white;
@@ -46,136 +45,108 @@
             white-space: nowrap;
             font-family: var(--font-heading);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 2px solid var(--black);
         }
 
         .ticker-content {
             display: inline-block;
-            animation: marquee 20s linear infinite;
-            font-size: 14px;
+            animation: marquee 25s linear infinite;
         }
 
-        @keyframes marquee {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
+        @keyframes marquee { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
-        /* Nagłówek */
-        header {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .brand { font-family: var(--font-heading); font-size: 48px; line-height: 1; margin-bottom: 10px; }
+        /* HEADER */
+        header { text-align: center; padding: 40px 20px 20px; }
+        .brand { font-family: var(--font-heading); font-size: 48px; line-height: 1; }
         .ak { color: var(--signal-red); }
         .bau { color: var(--neon-yellow); }
-        .emergency-tag { 
-            font-size: 12px; 
-            letter-spacing: 6px; 
-            color: var(--white); 
-            opacity: 0.6; 
-            font-weight: 400;
-            text-transform: uppercase;
-        }
+        .emergency-tag { font-size: 11px; letter-spacing: 6px; opacity: 0.6; margin-top: 8px; text-transform: uppercase; }
 
         .status-box {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #00ff41;
+            display: inline-flex; align-items: center; margin-top: 25px;
+            font-size: 13px; font-weight: 700; color: #00ff41;
+            background: rgba(0, 255, 65, 0.05); padding: 8px 16px; border-radius: 30px;
         }
 
         .pulse {
-            width: 10px; height: 10px; background: #00ff41; border-radius: 50%;
-            box-shadow: 0 0 10px #00ff41;
-            animation: pulse-ring 1.5s infinite;
+            width: 8px; height: 8px; background: #00ff41; border-radius: 50%;
+            margin-right: 10px; box-shadow: 0 0 10px #00ff41;
+            animation: pulse-ring 2s infinite;
         }
 
         @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(0.95); opacity: 1; }
         }
 
-        /* Formularz */
-        .main-container { padding: 0 25px; }
-        
-        .form-card {
-            background: var(--dark-grey);
-            padding: 35px 25px;
-            border-radius: 20px;
-            border: 1px solid #252525;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--signal-red), var(--neon-yellow));
-        }
-
-        h2 { font-family: var(--font-heading); color: var(--neon-yellow); font-size: 30px; margin: 0; }
-        .sub-text { font-size: 14px; color: #aaa; margin-bottom: 25px; }
+        /* FORM */
+        .form-container { padding: 20px; }
+        .form-card { background: #0f0f0f; padding: 30px 20px; border-radius: 24px; border: 1px solid #222; }
+        h2 { color: var(--neon-yellow); font-family: var(--font-heading); font-size: 28px; margin: 0; }
+        .sub-h { font-size: 14px; color: #888; margin: 5px 0 25px 0; }
 
         input, select, textarea {
-            width: 100%; padding: 16px; margin-bottom: 15px;
+            width: 100%; padding: 16px; margin-bottom: 12px;
             background: #000; border: 1px solid #333; color: white; border-radius: 12px;
             font-family: var(--font-main); box-sizing: border-box; font-size: 15px;
-            transition: 0.3s;
         }
 
-        input:focus, textarea:focus { border-color: var(--neon-yellow); outline: none; background: #050505; }
+        input:focus { border-color: var(--neon-yellow); outline: none; }
 
         .submit-btn {
-            width: 100%; padding: 22px; background: var(--neon-yellow); color: black;
-            border: none; font-weight: 900; font-size: 17px; cursor: pointer;
-            border-radius: 12px; text-transform: uppercase; transition: 0.4s;
-            font-family: var(--font-heading); letter-spacing: 1px;
+            width: 100%; padding: 20px; background: var(--neon-yellow); color: black;
+            border: none; font-weight: 900; font-size: 16px; cursor: pointer;
+            border-radius: 12px; text-transform: uppercase; transition: 0.3s;
+            font-family: var(--font-heading);
         }
 
-        .submit-btn:hover { background: var(--white); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
-        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        /* TILES */
+        .tiles-section { padding: 0 20px 40px; display: flex; flex-direction: column; gap: 15px; }
+        .tile {
+            display: flex; align-items: center;
+            background: linear-gradient(145deg, #111, #080808);
+            padding: 20px; border-radius: 18px; border: 1px solid #1a1a1a;
+            transition: all 0.3s ease;
+        }
+        .tile:hover { border-color: var(--neon-yellow); transform: translateX(8px); }
+        .tile-icon-wrapper {
+            min-width: 60px; height: 60px; background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; margin-right: 20px; transition: 0.3s;
+        }
+        .tile:hover .tile-icon-wrapper { background: rgba(241, 255, 0, 0.1); }
+        .tile-h { margin: 0; font-family: var(--font-heading); font-size: 20px; color: var(--neon-yellow); text-transform: uppercase; }
+        .tile-p { margin: 4px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
 
-        /* Telefon */
-        .call-section { text-align: center; padding: 40px 25px; }
-        .call-label { color: var(--signal-red); font-weight: 700; font-family: var(--font-heading); margin-bottom: 15px; display: block; }
-        
-        .phone-button {
-            display: flex; align-items: center; justify-content: center; gap: 15px;
-            background: #1a0000; border: 2px solid var(--signal-red); color: white;
-            text-decoration: none; padding: 25px; border-radius: 15px;
-            font-size: 26px; font-weight: 900; font-family: var(--font-heading);
-            transition: 0.3s;
+        /* PHONE */
+        .call-section { padding: 30px 20px; text-align: center; }
+        .call-btn {
+            display: block; background: var(--signal-red); color: white;
+            text-decoration: none; padding: 25px; border-radius: 18px;
+            font-size: 28px; font-weight: 900; font-family: var(--font-heading); transition: 0.3s;
         }
 
-        .phone-button:hover { background: var(--signal-red); box-shadow: 0 0 30px rgba(255,0,0,0.3); }
-
-        /* Komunikaty */
-        #status-msg {
-            display: none; padding: 15px; border-radius: 12px; margin-top: 20px;
-            text-align: center; font-weight: 700; font-size: 14px;
+        /* LANG SWITCH AT BOTTOM */
+        .bottom-lang-switch {
+            display: flex; justify-content: center; gap: 15px; padding: 20px;
+            border-top: 1px solid #111; margin-top: 20px;
         }
-
-        #msg-preview {
-            display: none; margin-top: 15px; background: #050505; padding: 20px;
-            border-radius: 12px; border-left: 4px solid var(--neon-yellow);
+        .lang-btn {
+            background: #111; border: 1px solid #333; color: #666;
+            padding: 12px 25px; cursor: pointer; font-weight: 700;
+            border-radius: 10px; transition: 0.3s; font-family: var(--font-main);
         }
+        .lang-btn.active { border-color: var(--neon-yellow); color: var(--neon-yellow); background: rgba(241, 255, 0, 0.1); }
 
-        .footer { text-align: center; padding: 40px; font-size: 11px; opacity: 0.4; letter-spacing: 1px; }
-
+        footer { text-align: center; padding: 20px; font-size: 11px; color: #444; }
+        #status-msg { display: none; margin-top: 20px; padding: 15px; border-radius: 12px; text-align: center; font-weight: 700; }
     </style>
 </head>
 <body>
 
 <div class="page-wrapper">
     <div class="alarm-ticker">
-        <div class="ticker-content">
-            +++ 24/7 NOTDIENST +++ HYDRAULIKA +++ ELEKTRYKA +++ SZYBKI DOJAZD HAMBURG & SEEVETAL +++ ZADZWOŃ TERAZ +++
-        </div>
+        <div class="ticker-content" id="ticker-text"></div>
     </div>
 
     <header>
@@ -184,107 +155,139 @@
             <div class="emergency-tag">Emergency Unit</div>
         </div>
         <div class="status-box">
-            <div class="pulse"></div> STATUS: EKIPA GOTOWA DO PRACY
+            <div class="pulse"></div>
+            <span id="status-text"></span>
         </div>
     </header>
 
-    <div class="main-container">
+    <div class="form-container">
         <div class="form-card">
-            <h2>ZGŁOŚ AWARIĘ</h2>
-            <p class="sub-text">Otrzymasz potwierdzenie po wysłaniu.</p>
-
+            <h2 id="h-title"></h2>
+            <p class="sub-h" id="h-sub"></p>
             <form id="sos-form" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
                 <input type="hidden" name="_cc" value="adrianmikulewicz@gmail.com">
-                <input type="hidden" name="_captcha" value="false">
-
-                <input type="text" name="name" placeholder="Imię i Nazwisko" required>
-                <input type="tel" name="phone" placeholder="Numer telefonu (wymagany)" required>
-                
-                <select name="typ_uslugi">
-                    <option value="Hydraulika">💧 Hydraulika / Zalanie</option>
-                    <option value="Elektryka">⚡ Prąd / Elektryka</option>
-                    <option value="Budowlane">🏗️ Nagła awaria budowlana</option>
-                    <option value="Inne">Inne zgłoszenie</option>
+                <input type="text" name="name" id="f-name" required>
+                <input type="tel" name="phone" id="f-phone" required>
+                <select name="type" id="f-select">
+                    <option value="Water"></option>
+                    <option value="Car"></option>
+                    <option value="Electric"></option>
+                    <option value="Other"></option>
                 </select>
-
-                <textarea name="message" id="user-msg" rows="4" placeholder="Co się stało? (np. pęknięta rura, brak prądu)" required></textarea>
-                
-                <button type="submit" id="submit-btn" class="submit-btn">WYŚLIJ ZGŁOSZENIE SOS</button>
+                <textarea name="message" id="f-msg" rows="3" required></textarea>
+                <button type="submit" id="submit-btn" class="submit-btn"></button>
             </form>
-
             <div id="status-msg"></div>
-            
-            <div id="msg-preview">
-                <span style="color: var(--neon-yellow); font-size: 12px; font-weight: 700; text-transform: uppercase;">Wysłano wiadomość:</span>
-                <p id="preview-text" style="margin: 10px 0 0 0; color: #eee; font-size: 14px;"></p>
-            </div>
         </div>
     </div>
 
     <div class="call-section">
-        <span class="call-label">MASZ MAŁO CZASU? DZWOŃ:</span>
-        <a href="tel:017684916817" class="phone-button">
-            📞 0176 84916817
-        </a>
+        <p style="color: var(--signal-red); font-weight: 700; font-size: 13px; margin-bottom: 12px;" id="call-info"></p>
+        <a href="tel:017684916817" class="call-btn">📞 0176 84916817</a>
     </div>
 
-    <footer class="footer">
+    <section class="tiles-section">
+        <div class="tile">
+            <div class="tile-icon-wrapper">💧</div>
+            <div class="tile-text"><h3 class="tile-h" id="t1-h"></h3><p class="tile-p" id="t1-p"></p></div>
+        </div>
+        <div class="tile">
+            <div class="tile-icon-wrapper">🚗</div>
+            <div class="tile-text"><h3 class="tile-h" id="t2-h"></h3><p class="tile-p" id="t2-p"></p></div>
+        </div>
+        <div class="tile">
+            <div class="tile-icon-wrapper">⚡</div>
+            <div class="tile-text"><h3 class="tile-h" id="t3-h"></h3><p class="tile-p" id="t3-p"></p></div>
+        </div>
+    </section>
+
+    <div class="bottom-lang-switch">
+        <button id="btn-pl" class="lang-btn" onclick="setLang('pl')">Polski</button>
+        <button id="btn-de" class="lang-btn" onclick="setLang('de')">Deutsch</button>
+    </div>
+
+    <footer>
         📍 Winsener Landstraße 4, 21217 Seevetal<br>
         © 2026 AK BAU EMERGENCY GROUP
     </footer>
 </div>
 
 <script>
-    const sosForm = document.getElementById('sos-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const statusMsg = document.getElementById('status-msg');
-    const msgPreview = document.getElementById('msg-preview');
-    const previewText = document.getElementById('preview-text');
-
-    sosForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const currentMessage = document.getElementById('user-msg').value;
-
-        // UI Start
-        submitBtn.disabled = true;
-        submitBtn.textContent = "ŁĄCZENIE Z SERWEREM...";
-
-        try {
-            const response = await fetch(sosForm.action, {
-                method: 'POST',
-                body: new FormData(sosForm),
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                // Sukces
-                statusMsg.style.display = "block";
-                statusMsg.style.background = "rgba(0, 255, 65, 0.15)";
-                statusMsg.style.color = "#00ff41";
-                statusMsg.style.border = "1px solid #00ff41";
-                statusMsg.textContent = "✔ ZGŁOSZENIE PRZYJĘTE. ZADZWONIMY DO CIEBIE!";
-
-                previewText.textContent = currentMessage;
-                msgPreview.style.display = "block";
-
-                sosForm.reset();
-            } else {
-                throw new Error();
-            }
-        } catch (error) {
-            // Błąd
-            statusMsg.style.display = "block";
-            statusMsg.style.background = "rgba(255, 0, 0, 0.15)";
-            statusMsg.style.color = "#ff4d4d";
-            statusMsg.style.border = "1px solid #ff4d4d";
-            statusMsg.textContent = "BŁĄD WYSYŁANIA. PROSIMY O KONTAKT TELEFONICZNY!";
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "WYŚLIJ PONOWNIE";
+    const langData = {
+        de: {
+            ticker: "+++ TECHNISCHER NOTDIENST 24/7 +++ SCHNELLE ANFAHRT +++ SEEVETAL +++ HAMBURG +++ REPARATUR VOR ORT +++",
+            status: "STATUS: ONLINE / VERFÜGBAR",
+            title: "NOTFALL MELDEN",
+            sub: "Wir rufen in 5 Minuten zurück",
+            btn: "SOS-ANFRAGE SENDEN",
+            name: "Name", phone: "Telefonnummer", msg: "Problem beschreiben...",
+            call: "ODER SOFORT ANRUFEN:",
+            success: "Gesendet! Wir rufen gleich an.",
+            error: "Fehler! Bitte rufen Sie an.",
+            opt1: "💧 Sanitär / Wasserschaden", opt2: "🚗 Auto SOS / Pannenhilfe",
+            opt3: "⚡ Strom / Elektrik", opt4: "Anderer Notfall",
+            t1h: "WASSERSCHADEN", t1p: "Rohrbruch, Wasser abpumpen, schnelle Abdichtung.",
+            t2h: "AUTO SOS", t2p: "Pannenhilfe, Motorschaden, mobiler Mechaniker 24h.",
+            t3h: "ELEKTRIK", t3p: "Stromausfall, Kurzschluss, Sicherungen und Reparaturen."
+        },
+        pl: {
+            ticker: "+++ POGOTOWIE TECHNICZNE 24/7 +++ SZYBKI DOJAZD +++ SEEVETAL +++ HAMBURG +++ NAPRAWA NA MIEJSCU +++",
+            status: "STATUS: DOSTĘPNI / ONLINE",
+            title: "ZGŁOŚ AWARIĘ",
+            sub: "Oddzwonimy w ciągu 5 minut",
+            btn: "WYŚLIJ ZGŁOSZENIE SOS",
+            name: "Imię", phone: "Telefon", msg: "Opisz problem...",
+            call: "LUB ZADZWOŃ NATYCHMIAST:",
+            success: "Zgłoszenie wysłane! Zaraz zadzwonimy.",
+            error: "Błąd! Zadzwoń do nas.",
+            opt1: "💧 Hydraulika / Zalanie", opt2: "🚗 Auto SOS / Pomoc Drogowa",
+            opt3: "⚡ Prąd / Elektryka", opt4: "Inna awaria",
+            t1h: "ZALANIA", t1p: "Pęknięte rury, pompowanie wody, uszczelnianie instalacji.",
+            t2h: "AUTO SOS", t2p: "Pomoc drogowa, awarie silnika, mobilny mechanik 24h.",
+            t3h: "ELEKTRYKA", t3p: "Brak prądu, spięcia, wymiana bezpieczników i naprawy."
         }
+    };
+
+    let currentLang = 'de'; // STARTUJEMY Z NIEMIECKIEGO
+
+    function setLang(lang) {
+        currentLang = lang;
+        document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
+        document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+        const d = langData[lang];
+        document.getElementById('ticker-text').textContent = d.ticker;
+        document.getElementById('status-text').textContent = d.status;
+        document.getElementById('h-title').textContent = d.title;
+        document.getElementById('h-sub').textContent = d.sub;
+        document.getElementById('submit-btn').textContent = d.btn;
+        document.getElementById('f-name').placeholder = d.name;
+        document.getElementById('f-phone').placeholder = d.phone;
+        document.getElementById('f-msg').placeholder = d.msg;
+        document.getElementById('call-info').textContent = d.call;
+        const sel = document.getElementById('f-select');
+        sel.options[0].text = d.opt1; sel.options[1].text = d.opt2;
+        sel.options[2].text = d.opt3; sel.options[3].text = d.opt4;
+        document.getElementById('t1-h').textContent = d.t1h; document.getElementById('t1-p').textContent = d.t1p;
+        document.getElementById('t2-h').textContent = d.t2h; document.getElementById('t2-p').textContent = d.t2p;
+        document.getElementById('t3-h').textContent = d.t3h; document.getElementById('t3-p').textContent = d.t3p;
+    }
+
+    // Inicjalizacja domyślnego języka (DE)
+    setLang('de');
+
+    const form = document.getElementById('sos-form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        const status = document.getElementById('status-msg');
+        btn.disabled = true; btn.textContent = "...";
+        try {
+            const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+            if (res.ok) { status.style.display = "block"; status.style.color = "#00ff41"; status.textContent = langData[currentLang].success; form.reset(); }
+            else { throw new Error(); }
+        } catch { status.style.display = "block"; status.style.color = "#ff4d4d"; status.textContent = langData[currentLang].error; }
+        finally { btn.disabled = false; btn.textContent = langData[currentLang].btn; }
     });
 </script>
-
 </body>
 </html>
