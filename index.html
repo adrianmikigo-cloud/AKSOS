@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS | AK BAU EMERGENCY 24/7A</title>
+    <title>SOS | AK BAU EMERGENCY 24/7</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -28,7 +28,7 @@
             box-shadow: 0 0 60px rgba(0,0,0,1);
         }
 
-        /* TICKER */
+        /* TICKER ALARMOWY */
         .alarm-ticker {
             background: var(--signal-red); color: white; padding: 12px 0;
             font-weight: 700; overflow: hidden; white-space: nowrap;
@@ -55,7 +55,7 @@
         }
         @keyframes pulse-ring { 0% { transform: scale(0.95); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.5; } 100% { transform: scale(0.95); opacity: 1; } }
 
-        /* FORM */
+        /* FORMULARZ */
         .form-container { padding: 20px; }
         .form-card { background: #0f0f0f; padding: 30px 20px; border-radius: 24px; border: 1px solid #222; }
         h2 { color: var(--neon-yellow); font-family: var(--font-heading); font-size: 28px; margin: 0; }
@@ -75,7 +75,7 @@
             font-family: var(--font-heading);
         }
 
-        /* TILES */
+        /* KAFELKI USŁUG */
         .tiles-section { padding: 0 20px 40px; display: flex; flex-direction: column; gap: 15px; }
         .tile {
             display: flex; align-items: center; background: linear-gradient(145deg, #111, #080808);
@@ -90,13 +90,15 @@
         .tile-h { margin: 0; font-family: var(--font-heading); font-size: 20px; color: var(--neon-yellow); text-transform: uppercase; }
         .tile-p { margin: 4px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
 
-        /* PHONE & LANG */
+        /* PRZYCISK TELEFONU */
         .call-section { padding: 30px 20px; text-align: center; }
         .call-btn {
             display: block; background: var(--signal-red); color: white;
             text-decoration: none; padding: 25px; border-radius: 18px;
             font-size: 28px; font-weight: 900; font-family: var(--font-heading); transition: 0.3s;
         }
+
+        /* JĘZYKI NA DOLE */
         .bottom-lang-switch { display: flex; justify-content: center; gap: 15px; padding: 20px; border-top: 1px solid #111; margin-top: 20px; }
         .lang-btn {
             background: #111; border: 1px solid #333; color: #666; padding: 12px 25px; 
@@ -176,7 +178,7 @@
             opt1: "💧 Sanitär / Wasserschaden", opt2: "🚗 Auto SOS / Pannenhilfe", opt3: "⚡ Strom / Elektrik", opt4: "Anderer Notfall",
             t1h: "WASSERSCHADEN", t1p: "Rohrbruch, Wasser abpumpen, schnelle Abdichtung.",
             t2h: "AUTO SOS", t2p: "Pannenhilfe, Motorschaden, mobiler Mechaniker 24h.",
-            t3h: "ELEKTRIK", t3p: "Stromausfall, Kurzschluss, Sicherungen i. Reparaturen."
+            t3h: "ELEKTRIK", t3p: "Stromausfall, Kurzschluss, Reparaturen."
         },
         pl: {
             ticker: "+++ POGOTOWIE TECHNICZNE 24/7 +++ SZYBKI DOJAZD +++ SEEVETAL +++ HAMBURG +++",
@@ -185,9 +187,9 @@
             name: "Imię", phone: "Telefon", msg: "Opisz problem...", call: "LUB ZADZWOŃ NATYCHMIAST:",
             success: "Zgłoszenie wysłane! Zaraz zadzwonimy.", error: "Błąd! Zadzwoń do nas.",
             opt1: "💧 Hydraulika / Zalanie", opt2: "🚗 Auto SOS / Pomoc Drogowa", opt3: "⚡ Prąd / Elektryka", opt4: "Inna awaria",
-            t1h: "ZALANIA", t1p: "Pęknięte rury, pompowanie wody, uszczelnianie instalacji.",
-            t2h: "AUTO SOS", t2p: "Pomoc drogowa, awarie silnika, mobilny mechanik 24h.",
-            t3h: "ELEKTRYKA", t3p: "Brak prądu, spięcia, wymiana bezpieczników i naprawy."
+            t1h: "ZALANIA", t1p: "Pęknięte rury, pompowanie wody, uszczelnianie.",
+            t2h: "AUTO SOS", t2p: "Pomoc drogowa, awarie, mechanik 24h.",
+            t3h: "ELEKTRYKA", t3p: "Brak prądu, spięcia, naprawy."
         }
     };
 
@@ -223,7 +225,6 @@
         const btn = document.getElementById('submit-btn');
         const status = document.getElementById('status-msg');
         
-        // Dane do NTFY
         const nName = document.getElementById('f-name').value;
         const nPhone = document.getElementById('f-phone').value;
         const nType = document.getElementById('f-select').value;
@@ -231,25 +232,37 @@
 
         btn.disabled = true; btn.textContent = "...";
 
-        // --- PUSH NTFY.SH ---
+        // --- PUSH NTFY.SH (POPRAWIONY) ---
+        // Pamiętaj: zasubskrybuj kanał "akbau_emergency_2026" w aplikacji ntfy na Androidzie!
         fetch('https://ntfy.sh/akbau_emergency_2026', {
             method: 'POST',
-            body: `Klient: ${nName}\nTel: ${nPhone}\nTyp: ${nType}\nOpis: ${nMsg}`,
+            body: `Kto: ${nName}\nTel: ${nPhone}\nProblem: ${nType}\nOpis: ${nMsg}`,
             headers: {
-                'Title': '⚠️ NOWE ZGŁOSZENIE AK BAU',
-                'Priority': 'high',
+                'Title': '🚨 NOWA AWARIA - AK BAU 🚨',
+                'Priority': '5', // Najwyższy priorytet (Głośny alarm)
                 'Tags': 'rotating_light,phone',
-                'Actions': `view, Zadzwoń do klienta, tel:${nPhone}, clear=true`
+                'Click': `tel:${nPhone}`, // Kliknięcie w powiadomienie dzwoni do klienta
+                'Actions': `view, ZADZWOŃ TERAZ, tel:${nPhone}` // Przycisk akcji pod powiadomieniem
             }
-        });
+        }).catch(err => console.error("Ntfy Error", err));
 
         // --- EMAIL FORMSUBMIT ---
         try {
             const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-            if (res.ok) { status.style.display = "block"; status.style.color = "#00ff41"; status.textContent = langData[currentLang].success; form.reset(); }
-            else { throw new Error(); }
-        } catch { status.style.display = "block"; status.style.color = "#ff4d4d"; status.textContent = langData[currentLang].error; }
-        finally { btn.disabled = false; btn.textContent = langData[currentLang].btn; }
+            if (res.ok) { 
+                status.style.display = "block"; 
+                status.style.color = "#00ff41"; 
+                status.textContent = langData[currentLang].success; 
+                form.reset(); 
+            } else { throw new Error(); }
+        } catch { 
+            status.style.display = "block"; 
+            status.style.color = "#ff4d4d"; 
+            status.textContent = langData[currentLang].error; 
+        } finally { 
+            btn.disabled = false; 
+            btn.textContent = langData[currentLang].btn; 
+        }
     });
 </script>
 </body>
