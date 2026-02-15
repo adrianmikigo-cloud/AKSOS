@@ -2,212 +2,87 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS | AK BAU EMERGENCY 24/7a</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <title>Formularz SOS</title>
     <style>
-        :root {
-            --black: #000000;
-            --dark-grey: #121212;
-            --neon-yellow: #f1ff00;
-            --signal-red: #ff0000;
-            --white: #ffffff;
-            --font-main: 'Montserrat', sans-serif;
-            --font-heading: 'Oswald', sans-serif;
+        body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
+        form { max-width: 400px; background: #222; padding: 20px; border-radius: 8px; }
+        input, textarea, select, button { 
+            width: 100%; display: block; margin-bottom: 15px; padding: 10px; box-sizing: border-box; 
         }
-
-        body {
-            background: #080808;
-            color: var(--white);
-            font-family: var(--font-main);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .page-wrapper {
-            max-width: 600px;
-            width: 100%;
-            background: var(--black);
-            min-height: 100vh;
-            border-left: 1px solid #1a1a1a;
-            border-right: 1px solid #1a1a1a;
-            padding-bottom: 40px;
-        }
-
-        .alarm-ticker {
-            background: var(--signal-red);
-            color: white;
-            padding: 10px 0;
-            font-weight: 700;
-            overflow: hidden;
-            white-space: nowrap;
-            font-family: var(--font-heading);
-        }
-
-        .ticker-content {
-            display: inline-block;
-            animation: marquee 25s linear infinite;
-            font-size: 14px;
-        }
-
-        @keyframes marquee {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
-
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .brand { font-family: var(--font-heading); font-size: 42px; line-height: 1; }
-        .ak { color: var(--signal-red); }
-        .bau { color: var(--neon-yellow); }
-        .emergency-tag { font-size: 11px; letter-spacing: 5px; opacity: 0.5; margin-top: 8px; }
-
-        .form-container {
-            background: var(--dark-grey);
-            margin: 0 20px;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #222;
-        }
-
-        h2 { color: var(--neon-yellow); margin: 0 0 5px 0; font-family: var(--font-heading); font-size: 28px; }
-        p.sub { font-size: 14px; color: #888; margin-bottom: 20px; }
-
-        input, select, textarea {
-            width: 100%; padding: 15px; margin-bottom: 12px;
-            background: #000; border: 1px solid #333; color: white; border-radius: 8px;
-            font-family: var(--font-main); box-sizing: border-box;
-        }
-
-        input:focus { border-color: var(--neon-yellow); outline: none; }
-
-        .sos-submit-btn {
-            width: 100%; padding: 20px; background: var(--neon-yellow); color: black;
-            border: none; font-weight: 900; font-size: 16px; cursor: pointer;
-            border-radius: 8px; text-transform: uppercase; transition: 0.3s;
-        }
-
-        .sos-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        /* Statusy wysyłki */
-        #form-status {
-            display: none; margin-top: 20px; padding: 15px; border-radius: 8px; 
-            font-size: 14px; text-align: center; font-weight: bold;
-        }
-
-        #last-message-preview {
-            display: none; margin-top: 15px; background: #000; padding: 15px; 
-            border-left: 4px solid var(--neon-yellow); font-size: 13px; color: #ccc;
-        }
+        button { background: #f1ff00; color: #000; font-weight: bold; cursor: pointer; border: none; }
+        #status { display: none; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+        #preview { display: none; background: #000; padding: 10px; border-left: 3px solid #f1ff00; }
     </style>
 </head>
 <body>
 
-<div class="page-wrapper">
-    <div class="alarm-ticker">
-        <div class="ticker-content">
-            +++ POGOTOWIE TECHNICZNE 24/7 +++ SZYBKI DOJAZD +++ SEEVETAL +++ HAMBURG +++ NAPRAWA NA MIEJSCU +++ ZADZWOŃ TERAZ +++
-        </div>
+    <form id="sos-form" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
+        <input type="hidden" name="_cc" value="adrianmikulewicz@gmail.com">
+        <input type="hidden" name="_captcha" value="false">
+
+        <input type="text" name="name" placeholder="Imię" required>
+        <input type="tel" name="phone" placeholder="Telefon" required>
+        
+        <select name="typ_awarii">
+            <option value="Hydraulika">Hydraulika</option>
+            <option value="Elektryka">Elektryka</option>
+            <option value="Inne">Inne</option>
+        </select>
+
+        <textarea name="message" id="msg" placeholder="Opis problemu..." required></textarea>
+        
+        <button type="submit" id="s-btn">WYŚLIJ ZGŁOSZENIE</button>
+    </form>
+
+    <div id="status"></div>
+    <div id="preview">
+        <strong>Wysłano wiadomość o treści:</strong><br>
+        <span id="copy"></span>
     </div>
 
-    <header class="header">
-        <div class="brand">
-            <span class="ak">AK</span><span class="bau">BAU</span>
-            <div class="emergency-tag">EMERGENCY UNIT</div>
-        </div>
-    </header>
+    <script>
+        const form = document.getElementById('sos-form');
+        const btn = document.getElementById('s-btn');
+        const status = document.getElementById('status');
+        const preview = document.getElementById('preview');
+        const copy = document.getElementById('copy');
 
-    <div class="form-container">
-        <h2>ZGŁOŚ AWARIĘ</h2>
-        <p class="sub">Oddzwonimy w ciągu 5 minut</p>
-
-        <form id="sos-contact-form" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
-            <input type="hidden" name="_cc" value="adrianmikulewicz@gmail.com">
-            <input type="hidden" name="_subject" value="NOWE ZGŁOSZENIE SOS - AK BAU!">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-
-            <input type="text" name="name" placeholder="Imię i Nazwisko" required>
-            <input type="tel" name="phone" placeholder="Numer telefonu" required>
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const rawMsg = document.getElementById('msg').value;
             
-            <select name="service_type">
-                <option value="hydraulika">💧 Hydraulika / Zalanie</option>
-                <option value="elektryka">⚡ Prąd / Elektryka</option>
-                <option value="budowlane">🏗️ Nagła awaria budowlana</option>
-                <option value="inne">Inny problem</option>
-            </select>
+            btn.disabled = true;
+            btn.textContent = "Wysyłanie...";
 
-            <textarea name="message" id="user-message" rows="4" placeholder="Opisz krótko problem..." required></textarea>
-            
-            <button type="submit" id="f-btn" class="sos-submit-btn">WYŚLIJ ZGŁOSZENIE SOS</button>
-        </form>
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
 
-        <div id="form-status"></div>
-        
-        <div id="last-message-preview">
-            <strong style="color: var(--neon-yellow);">POTWIERDZENIE WYSŁANIA:</strong><br><br>
-            <span id="display-msg"></span>
-        </div>
-    </div>
-</div>
-
-<script>
-    const form = document.getElementById('sos-contact-form');
-    const btn = document.getElementById('f-btn');
-    const status = document.getElementById('form-status');
-    const preview = document.getElementById('last-message-preview');
-    const displayMsg = document.getElementById('display-msg');
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        // Zapisz treść wiadomości przed wysłaniem
-        const messageText = document.getElementById('user-message').value;
-
-        // Blokowanie przycisku
-        btn.disabled = true;
-        btn.textContent = "WYSYŁANIE...";
-
-        try {
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                // Sukces
+                if (res.ok) {
+                    status.textContent = "Wysłano pomyślnie!";
+                    status.style.background = "green";
+                    status.style.display = "block";
+                    
+                    copy.textContent = rawMsg;
+                    preview.style.display = "block";
+                    
+                    form.reset();
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                status.textContent = "Błąd wysyłki!";
+                status.style.background = "red";
                 status.style.display = "block";
-                status.style.background = "rgba(0, 255, 65, 0.1)";
-                status.style.color = "#00ff41";
-                status.style.border = "1px solid #00ff41";
-                status.textContent = "Zgłoszenie zostało wysłane pomyślnie!";
-
-                // Wyświetlenie treści wiadomości
-                displayMsg.textContent = messageText;
-                preview.style.display = "block";
-
-                form.reset();
-            } else {
-                throw new Error();
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "WYŚLIJ ZGŁOSZENIE";
             }
-        } catch (error) {
-            // Błąd
-            status.style.display = "block";
-            status.style.background = "rgba(255, 0, 0, 0.1)";
-            status.style.color = "#ff0000";
-            status.style.border = "1px solid #ff0000";
-            status.textContent = "Wystąpił błąd. Spróbuj ponownie lub zadzwoń.";
-        } finally {
-            btn.disabled = false;
-            btn.textContent = "WYŚLIJ ZGŁOSZENIE SOS";
-        }
-    });
-</script>
+        });
+    </script>
 
 </body>
 </html>
