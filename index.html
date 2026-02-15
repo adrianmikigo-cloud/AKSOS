@@ -2,87 +2,289 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Formularz SOS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS | AK BAU EMERGENCY 24/7</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
-        form { max-width: 400px; background: #222; padding: 20px; border-radius: 8px; }
-        input, textarea, select, button { 
-            width: 100%; display: block; margin-bottom: 15px; padding: 10px; box-sizing: border-box; 
+        :root {
+            --black: #000000;
+            --dark-grey: #121212;
+            --neon-yellow: #f1ff00;
+            --signal-red: #ff0000;
+            --white: #ffffff;
+            --font-main: 'Montserrat', sans-serif;
+            --font-heading: 'Oswald', sans-serif;
         }
-        button { background: #f1ff00; color: #000; font-weight: bold; cursor: pointer; border: none; }
-        #status { display: none; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
-        #preview { display: none; background: #000; padding: 10px; border-left: 3px solid #f1ff00; }
+
+        body {
+            background: #080808;
+            color: var(--white);
+            font-family: var(--font-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            line-height: 1.6;
+        }
+
+        .page-wrapper {
+            max-width: 550px;
+            width: 100%;
+            background: var(--black);
+            min-height: 100vh;
+            border-left: 1px solid #1a1a1a;
+            border-right: 1px solid #1a1a1a;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        /* Górny pasek alarmowy */
+        .alarm-ticker {
+            background: var(--signal-red);
+            color: white;
+            padding: 12px 0;
+            font-weight: 700;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--black);
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            font-size: 14px;
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        /* Nagłówek */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .brand { font-family: var(--font-heading); font-size: 48px; line-height: 1; margin-bottom: 10px; }
+        .ak { color: var(--signal-red); }
+        .bau { color: var(--neon-yellow); }
+        .emergency-tag { 
+            font-size: 12px; 
+            letter-spacing: 6px; 
+            color: var(--white); 
+            opacity: 0.6; 
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #00ff41;
+        }
+
+        .pulse {
+            width: 10px; height: 10px; background: #00ff41; border-radius: 50%;
+            box-shadow: 0 0 10px #00ff41;
+            animation: pulse-ring 1.5s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        /* Formularz */
+        .main-container { padding: 0 25px; }
+        
+        .form-card {
+            background: var(--dark-grey);
+            padding: 35px 25px;
+            border-radius: 20px;
+            border: 1px solid #252525;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--signal-red), var(--neon-yellow));
+        }
+
+        h2 { font-family: var(--font-heading); color: var(--neon-yellow); font-size: 30px; margin: 0; }
+        .sub-text { font-size: 14px; color: #aaa; margin-bottom: 25px; }
+
+        input, select, textarea {
+            width: 100%; padding: 16px; margin-bottom: 15px;
+            background: #000; border: 1px solid #333; color: white; border-radius: 12px;
+            font-family: var(--font-main); box-sizing: border-box; font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus { border-color: var(--neon-yellow); outline: none; background: #050505; }
+
+        .submit-btn {
+            width: 100%; padding: 22px; background: var(--neon-yellow); color: black;
+            border: none; font-weight: 900; font-size: 17px; cursor: pointer;
+            border-radius: 12px; text-transform: uppercase; transition: 0.4s;
+            font-family: var(--font-heading); letter-spacing: 1px;
+        }
+
+        .submit-btn:hover { background: var(--white); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Telefon */
+        .call-section { text-align: center; padding: 40px 25px; }
+        .call-label { color: var(--signal-red); font-weight: 700; font-family: var(--font-heading); margin-bottom: 15px; display: block; }
+        
+        .phone-button {
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            background: #1a0000; border: 2px solid var(--signal-red); color: white;
+            text-decoration: none; padding: 25px; border-radius: 15px;
+            font-size: 26px; font-weight: 900; font-family: var(--font-heading);
+            transition: 0.3s;
+        }
+
+        .phone-button:hover { background: var(--signal-red); box-shadow: 0 0 30px rgba(255,0,0,0.3); }
+
+        /* Komunikaty */
+        #status-msg {
+            display: none; padding: 15px; border-radius: 12px; margin-top: 20px;
+            text-align: center; font-weight: 700; font-size: 14px;
+        }
+
+        #msg-preview {
+            display: none; margin-top: 15px; background: #050505; padding: 20px;
+            border-radius: 12px; border-left: 4px solid var(--neon-yellow);
+        }
+
+        .footer { text-align: center; padding: 40px; font-size: 11px; opacity: 0.4; letter-spacing: 1px; }
+
     </style>
 </head>
 <body>
 
-    <form id="sos-form" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
-        <input type="hidden" name="_cc" value="adrianmikulewicz@gmail.com">
-        <input type="hidden" name="_captcha" value="false">
-
-        <input type="text" name="name" placeholder="Imię" required>
-        <input type="tel" name="phone" placeholder="Telefon" required>
-        
-        <select name="typ_awarii">
-            <option value="Hydraulika">Hydraulika</option>
-            <option value="Elektryka">Elektryka</option>
-            <option value="Inne">Inne</option>
-        </select>
-
-        <textarea name="message" id="msg" placeholder="Opis problemu..." required></textarea>
-        
-        <button type="submit" id="s-btn">WYŚLIJ ZGŁOSZENIE</button>
-    </form>
-
-    <div id="status"></div>
-    <div id="preview">
-        <strong>Wysłano wiadomość o treści:</strong><br>
-        <span id="copy"></span>
+<div class="page-wrapper">
+    <div class="alarm-ticker">
+        <div class="ticker-content">
+            +++ 24/7 NOTDIENST +++ HYDRAULIKA +++ ELEKTRYKA +++ SZYBKI DOJAZD HAMBURG & SEEVETAL +++ ZADZWOŃ TERAZ +++
+        </div>
     </div>
 
-    <script>
-        const form = document.getElementById('sos-form');
-        const btn = document.getElementById('s-btn');
-        const status = document.getElementById('status');
-        const preview = document.getElementById('preview');
-        const copy = document.getElementById('copy');
+    <header>
+        <div class="brand">
+            <span class="ak">AK</span><span class="bau">BAU</span>
+            <div class="emergency-tag">Emergency Unit</div>
+        </div>
+        <div class="status-box">
+            <div class="pulse"></div> STATUS: EKIPA GOTOWA DO PRACY
+        </div>
+    </header>
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const rawMsg = document.getElementById('msg').value;
+    <div class="main-container">
+        <div class="form-card">
+            <h2>ZGŁOŚ AWARIĘ</h2>
+            <p class="sub-text">Otrzymasz potwierdzenie po wysłaniu.</p>
+
+            <form id="sos-form" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
+                <input type="hidden" name="_cc" value="adrianmikulewicz@gmail.com">
+                <input type="hidden" name="_captcha" value="false">
+
+                <input type="text" name="name" placeholder="Imię i Nazwisko" required>
+                <input type="tel" name="phone" placeholder="Numer telefonu (wymagany)" required>
+                
+                <select name="typ_uslugi">
+                    <option value="Hydraulika">💧 Hydraulika / Zalanie</option>
+                    <option value="Elektryka">⚡ Prąd / Elektryka</option>
+                    <option value="Budowlane">🏗️ Nagła awaria budowlana</option>
+                    <option value="Inne">Inne zgłoszenie</option>
+                </select>
+
+                <textarea name="message" id="user-msg" rows="4" placeholder="Co się stało? (np. pęknięta rura, brak prądu)" required></textarea>
+                
+                <button type="submit" id="submit-btn" class="submit-btn">WYŚLIJ ZGŁOSZENIE SOS</button>
+            </form>
+
+            <div id="status-msg"></div>
             
-            btn.disabled = true;
-            btn.textContent = "Wysyłanie...";
+            <div id="msg-preview">
+                <span style="color: var(--neon-yellow); font-size: 12px; font-weight: 700; text-transform: uppercase;">Wysłano wiadomość:</span>
+                <p id="preview-text" style="margin: 10px 0 0 0; color: #eee; font-size: 14px;"></p>
+            </div>
+        </div>
+    </div>
 
-            try {
-                const res = await fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
-                });
+    <div class="call-section">
+        <span class="call-label">MASZ MAŁO CZASU? DZWOŃ:</span>
+        <a href="tel:017684916817" class="phone-button">
+            📞 0176 84916817
+        </a>
+    </div>
 
-                if (res.ok) {
-                    status.textContent = "Wysłano pomyślnie!";
-                    status.style.background = "green";
-                    status.style.display = "block";
-                    
-                    copy.textContent = rawMsg;
-                    preview.style.display = "block";
-                    
-                    form.reset();
-                } else {
-                    throw new Error();
-                }
-            } catch (err) {
-                status.textContent = "Błąd wysyłki!";
-                status.style.background = "red";
-                status.style.display = "block";
-            } finally {
-                btn.disabled = false;
-                btn.textContent = "WYŚLIJ ZGŁOSZENIE";
+    <footer class="footer">
+        📍 Winsener Landstraße 4, 21217 Seevetal<br>
+        © 2026 AK BAU EMERGENCY GROUP
+    </footer>
+</div>
+
+<script>
+    const sosForm = document.getElementById('sos-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const statusMsg = document.getElementById('status-msg');
+    const msgPreview = document.getElementById('msg-preview');
+    const previewText = document.getElementById('preview-text');
+
+    sosForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const currentMessage = document.getElementById('user-msg').value;
+
+        // UI Start
+        submitBtn.disabled = true;
+        submitBtn.textContent = "ŁĄCZENIE Z SERWEREM...";
+
+        try {
+            const response = await fetch(sosForm.action, {
+                method: 'POST',
+                body: new FormData(sosForm),
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                // Sukces
+                statusMsg.style.display = "block";
+                statusMsg.style.background = "rgba(0, 255, 65, 0.15)";
+                statusMsg.style.color = "#00ff41";
+                statusMsg.style.border = "1px solid #00ff41";
+                statusMsg.textContent = "✔ ZGŁOSZENIE PRZYJĘTE. ZADZWONIMY DO CIEBIE!";
+
+                previewText.textContent = currentMessage;
+                msgPreview.style.display = "block";
+
+                sosForm.reset();
+            } else {
+                throw new Error();
             }
-        });
-    </script>
+        } catch (error) {
+            // Błąd
+            statusMsg.style.display = "block";
+            statusMsg.style.background = "rgba(255, 0, 0, 0.15)";
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.style.border = "1px solid #ff4d4d";
+            statusMsg.textContent = "BŁĄD WYSYŁANIA. PROSIMY O KONTAKT TELEFONICZNY!";
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "WYŚLIJ PONOWNIE";
+        }
+    });
+</script>
 
 </body>
 </html>
