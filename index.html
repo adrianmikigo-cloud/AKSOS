@@ -1,78 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Test NTFY</title>
+    <title>AK BAU - Test Powiadomień</title>
 </head>
 <body>
 
-    <h1>Test Formularza SOS</h1>
+    <h1>Formularz SOS (ntfy + email)</h1>
     
-    <form id="testForm" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
-        
+    <form id="sosForm" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
         Imię: <br>
         <input type="text" id="name" name="name" required><br><br>
         
         Telefon: <br>
         <input type="tel" id="phone" name="phone" required><br><br>
         
-        Opis problemu: <br>
+        Opis awarii: <br>
         <textarea id="message" name="message" required></textarea><br><br>
         
-        <button type="submit" id="submitBtn">WYŚLIJ TEST</button>
+        <button type="submit" id="submitBtn">WYŚLIJ ZGŁOSZENIE</button>
     </form>
 
     <p id="status"></p>
 
     <script>
-        const form = document.getElementById('testForm');
-        
-        form.addEventListener('submit', async (e) => {
+        const form = document.getElementById('sosForm');
+        const status = document.getElementById('status');
+        const btn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            const status = document.getElementById('status');
-            const btn = document.getElementById('submitBtn');
             
-            // Pobieramy dane z pól
             const valName = document.getElementById('name').value;
             const valPhone = document.getElementById('phone').value;
             const valMsg = document.getElementById('message').value;
 
-            status.textContent = "Wysyłanie...";
             btn.disabled = true;
+            status.textContent = "Wysyłanie...";
 
-            // --- 1. WYSYŁKA DO NTFY (Powiadomienie na telefon) ---
-            // Upewnij się, że w apce ntfy masz kanał: akbau_emergency_2026
-            fetch('https://ntfy.sh/akbau_emergency_2026', {
+            // --- 1. PANCERNA WYSYŁKA DO NTFY (Metoda obrazka) ---
+            // Tworzymy link z wszystkimi danymi
+            const tresc = encodeURIComponent(`Klient: ${valName}\nTel: ${valPhone}\nOpis: ${valMsg}`);
+            const ntfyUrl = `https://ntfy.sh/akbau_emergency_2026/publish?message=${tresc}&title=SOS_AK_BAU&priority=5&tags=warning,phone`;
+
+            // Przeglądarka "ładuje" ten adres jako obrazek, co wysyła powiadomienie
+            const beacon = new Image();
+            beacon.src = ntfyUrl;
+
+            // --- 2. WYSYŁKA DO EMAIL (FormSubmit) ---
+            fetch(form.action, {
                 method: 'POST',
-                body: `NOWE ZGŁOSZENIE!\nImię: ${valName}\nTel: ${valPhone}\nOpis: ${valMsg}`,
-                headers: {
-                    'Title': '⚠️ TEST SOS',
-                    'Priority': '5',
-                    'Tags': 'warning,phone',
-                    'Actions': `view, ZADZWOŃ, tel:${valPhone}`
-                }
-            }).then(() => console.log("NTFY poszło"))
-              .catch(err => console.error("Błąd NTFY:", err));
-
-            // --- 2. WYSYŁKA DO GMAILA ---
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
-                });
-
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
                 if (response.ok) {
+                    status.style.color = "green";
                     status.textContent = "SUKCES! Sprawdź telefon i e-mail.";
                     form.reset();
                 } else {
-                    status.textContent = "Błąd e-mail, ale sprawdź NTFY.";
+                    status.textContent = "Błąd e-mail, ale powiadomienie ntfy mogło wyjść.";
                 }
-            } catch (err) {
-                status.textContent = "Błąd połączenia.";
-            } finally {
+            })
+            .catch(err => {
+                status.textContent = "Błąd połączenia z serwerem e-mail.";
+            })
+            .finally(() => {
                 btn.disabled = false;
-            }
+            });
         });
     </script>
 
