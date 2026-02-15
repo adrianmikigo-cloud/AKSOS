@@ -16,42 +16,25 @@
         }
 
         body {
-            background: #050505;
-            color: var(--white);
-            font-family: var(--font-main);
-            margin: 0;
-            display: flex;
-            justify-content: center;
+            background: #050505; color: var(--white);
+            font-family: var(--font-main); margin: 0;
+            display: flex; justify-content: center;
             -webkit-font-smoothing: antialiased;
         }
 
         .page-wrapper {
-            max-width: 500px;
-            width: 100%;
-            background: var(--black);
-            min-height: 100vh;
-            border-left: 1px solid #1a1a1a;
-            border-right: 1px solid #1a1a1a;
+            max-width: 500px; width: 100%; background: var(--black);
+            min-height: 100vh; border-left: 1px solid #1a1a1a; border-right: 1px solid #1a1a1a;
             box-shadow: 0 0 60px rgba(0,0,0,1);
         }
 
         /* TICKER */
         .alarm-ticker {
-            background: var(--signal-red);
-            color: white;
-            padding: 12px 0;
-            font-weight: 700;
-            overflow: hidden;
-            white-space: nowrap;
-            font-family: var(--font-heading);
-            text-transform: uppercase;
+            background: var(--signal-red); color: white; padding: 12px 0;
+            font-weight: 700; overflow: hidden; white-space: nowrap;
+            font-family: var(--font-heading); text-transform: uppercase;
         }
-
-        .ticker-content {
-            display: inline-block;
-            animation: marquee 25s linear infinite;
-        }
-
+        .ticker-content { display: inline-block; animation: marquee 25s linear infinite; }
         @keyframes marquee { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 
         /* HEADER */
@@ -66,18 +49,11 @@
             font-size: 13px; font-weight: 700; color: #00ff41;
             background: rgba(0, 255, 65, 0.05); padding: 8px 16px; border-radius: 30px;
         }
-
         .pulse {
             width: 8px; height: 8px; background: #00ff41; border-radius: 50%;
-            margin-right: 10px; box-shadow: 0 0 10px #00ff41;
-            animation: pulse-ring 2s infinite;
+            margin-right: 10px; box-shadow: 0 0 10px #00ff41; animation: pulse-ring 2s infinite;
         }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.5; }
-            100% { transform: scale(0.95); opacity: 1; }
-        }
+        @keyframes pulse-ring { 0% { transform: scale(0.95); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.5; } 100% { transform: scale(0.95); opacity: 1; } }
 
         /* FORM */
         .form-container { padding: 20px; }
@@ -90,7 +66,6 @@
             background: #000; border: 1px solid #333; color: white; border-radius: 12px;
             font-family: var(--font-main); box-sizing: border-box; font-size: 15px;
         }
-
         input:focus { border-color: var(--neon-yellow); outline: none; }
 
         .submit-btn {
@@ -103,38 +78,29 @@
         /* TILES */
         .tiles-section { padding: 0 20px 40px; display: flex; flex-direction: column; gap: 15px; }
         .tile {
-            display: flex; align-items: center;
-            background: linear-gradient(145deg, #111, #080808);
-            padding: 20px; border-radius: 18px; border: 1px solid #1a1a1a;
-            transition: all 0.3s ease;
+            display: flex; align-items: center; background: linear-gradient(145deg, #111, #080808);
+            padding: 20px; border-radius: 18px; border: 1px solid #1a1a1a; transition: all 0.3s ease;
         }
         .tile:hover { border-color: var(--neon-yellow); transform: translateX(8px); }
         .tile-icon-wrapper {
             min-width: 60px; height: 60px; background: rgba(255, 255, 255, 0.03);
             border-radius: 14px; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; margin-right: 20px; transition: 0.3s;
+            font-size: 30px; margin-right: 20px;
         }
-        .tile:hover .tile-icon-wrapper { background: rgba(241, 255, 0, 0.1); }
         .tile-h { margin: 0; font-family: var(--font-heading); font-size: 20px; color: var(--neon-yellow); text-transform: uppercase; }
         .tile-p { margin: 4px 0 0 0; font-size: 13px; color: #888; line-height: 1.4; }
 
-        /* PHONE */
+        /* PHONE & LANG */
         .call-section { padding: 30px 20px; text-align: center; }
         .call-btn {
             display: block; background: var(--signal-red); color: white;
             text-decoration: none; padding: 25px; border-radius: 18px;
             font-size: 28px; font-weight: 900; font-family: var(--font-heading); transition: 0.3s;
         }
-
-        /* LANG SWITCH AT BOTTOM */
-        .bottom-lang-switch {
-            display: flex; justify-content: center; gap: 15px; padding: 20px;
-            border-top: 1px solid #111; margin-top: 20px;
-        }
+        .bottom-lang-switch { display: flex; justify-content: center; gap: 15px; padding: 20px; border-top: 1px solid #111; margin-top: 20px; }
         .lang-btn {
-            background: #111; border: 1px solid #333; color: #666;
-            padding: 12px 25px; cursor: pointer; font-weight: 700;
-            border-radius: 10px; transition: 0.3s; font-family: var(--font-main);
+            background: #111; border: 1px solid #333; color: #666; padding: 12px 25px; 
+            cursor: pointer; font-weight: 700; border-radius: 10px; transition: 0.3s;
         }
         .lang-btn.active { border-color: var(--neon-yellow); color: var(--neon-yellow); background: rgba(241, 255, 0, 0.1); }
 
@@ -145,19 +111,11 @@
 <body>
 
 <div class="page-wrapper">
-    <div class="alarm-ticker">
-        <div class="ticker-content" id="ticker-text"></div>
-    </div>
+    <div class="alarm-ticker"><div class="ticker-content" id="ticker-text"></div></div>
 
     <header>
-        <div class="brand">
-            <span class="ak">AK</span><span class="bau">BAU</span>
-            <div class="emergency-tag">Emergency Unit</div>
-        </div>
-        <div class="status-box">
-            <div class="pulse"></div>
-            <span id="status-text"></span>
-        </div>
+        <div class="brand"><span class="ak">AK</span><span class="bau">BAU</span><div class="emergency-tag">Emergency Unit</div></div>
+        <div class="status-box"><div class="pulse"></div><span id="status-text"></span></div>
     </header>
 
     <div class="form-container">
@@ -169,10 +127,8 @@
                 <input type="text" name="name" id="f-name" required>
                 <input type="tel" name="phone" id="f-phone" required>
                 <select name="type" id="f-select">
-                    <option value="Water"></option>
-                    <option value="Car"></option>
-                    <option value="Electric"></option>
-                    <option value="Other"></option>
+                    <option value="Water"></option><option value="Car"></option>
+                    <option value="Electric"></option><option value="Other"></option>
                 </select>
                 <textarea name="message" id="f-msg" rows="3" required></textarea>
                 <button type="submit" id="submit-btn" class="submit-btn"></button>
@@ -206,49 +162,36 @@
         <button id="btn-de" class="lang-btn" onclick="setLang('de')">Deutsch</button>
     </div>
 
-    <footer>
-        📍 Winsener Landstraße 4, 21217 Seevetal<br>
-        © 2026 AK BAU EMERGENCY GROUP
-    </footer>
+    <footer>📍 Winsener Landstraße 4, 21217 Seevetal | © 2026 AK BAU</footer>
 </div>
 
 <script>
     const langData = {
         de: {
-            ticker: "+++ TECHNISCHER NOTDIENST 24/7 +++ SCHNELLE ANFAHRT +++ SEEVETAL +++ HAMBURG +++ REPARATUR VOR ORT +++",
+            ticker: "+++ TECHNISCHER NOTDIENST 24/7 +++ SCHNELLE ANFAHRT +++ SEEVETAL +++ HAMBURG +++",
             status: "STATUS: ONLINE / VERFÜGBAR",
-            title: "NOTFALL MELDEN",
-            sub: "Wir rufen in 5 Minuten zurück",
-            btn: "SOS-ANFRAGE SENDEN",
-            name: "Name", phone: "Telefonnummer", msg: "Problem beschreiben...",
-            call: "ODER SOFORT ANRUFEN:",
-            success: "Gesendet! Wir rufen gleich an.",
-            error: "Fehler! Bitte rufen Sie an.",
-            opt1: "💧 Sanitär / Wasserschaden", opt2: "🚗 Auto SOS / Pannenhilfe",
-            opt3: "⚡ Strom / Elektrik", opt4: "Anderer Notfall",
+            title: "NOTFALL MELDEN", sub: "Wir rufen in 5 Minuten zurück", btn: "SOS-ANFRAGE SENDEN",
+            name: "Name", phone: "Telefonnummer", msg: "Problem beschreiben...", call: "ODER SOFORT ANRUFEN:",
+            success: "Gesendet! Wir rufen gleich an.", error: "Fehler! Bitte rufen Sie an.",
+            opt1: "💧 Sanitär / Wasserschaden", opt2: "🚗 Auto SOS / Pannenhilfe", opt3: "⚡ Strom / Elektrik", opt4: "Anderer Notfall",
             t1h: "WASSERSCHADEN", t1p: "Rohrbruch, Wasser abpumpen, schnelle Abdichtung.",
             t2h: "AUTO SOS", t2p: "Pannenhilfe, Motorschaden, mobiler Mechaniker 24h.",
-            t3h: "ELEKTRIK", t3p: "Stromausfall, Kurzschluss, Sicherungen und Reparaturen."
+            t3h: "ELEKTRIK", t3p: "Stromausfall, Kurzschluss, Sicherungen i. Reparaturen."
         },
         pl: {
-            ticker: "+++ POGOTOWIE TECHNICZNE 24/7 +++ SZYBKI DOJAZD +++ SEEVETAL +++ HAMBURG +++ NAPRAWA NA MIEJSCU +++",
+            ticker: "+++ POGOTOWIE TECHNICZNE 24/7 +++ SZYBKI DOJAZD +++ SEEVETAL +++ HAMBURG +++",
             status: "STATUS: DOSTĘPNI / ONLINE",
-            title: "ZGŁOŚ AWARIĘ",
-            sub: "Oddzwonimy w ciągu 5 minut",
-            btn: "WYŚLIJ ZGŁOSZENIE SOS",
-            name: "Imię", phone: "Telefon", msg: "Opisz problem...",
-            call: "LUB ZADZWOŃ NATYCHMIAST:",
-            success: "Zgłoszenie wysłane! Zaraz zadzwonimy.",
-            error: "Błąd! Zadzwoń do nas.",
-            opt1: "💧 Hydraulika / Zalanie", opt2: "🚗 Auto SOS / Pomoc Drogowa",
-            opt3: "⚡ Prąd / Elektryka", opt4: "Inna awaria",
+            title: "ZGŁOŚ AWARIĘ", sub: "Oddzwonimy w ciągu 5 minut", btn: "WYŚLIJ ZGŁOSZENIE SOS",
+            name: "Imię", phone: "Telefon", msg: "Opisz problem...", call: "LUB ZADZWOŃ NATYCHMIAST:",
+            success: "Zgłoszenie wysłane! Zaraz zadzwonimy.", error: "Błąd! Zadzwoń do nas.",
+            opt1: "💧 Hydraulika / Zalanie", opt2: "🚗 Auto SOS / Pomoc Drogowa", opt3: "⚡ Prąd / Elektryka", opt4: "Inna awaria",
             t1h: "ZALANIA", t1p: "Pęknięte rury, pompowanie wody, uszczelnianie instalacji.",
             t2h: "AUTO SOS", t2p: "Pomoc drogowa, awarie silnika, mobilny mechanik 24h.",
             t3h: "ELEKTRYKA", t3p: "Brak prądu, spięcia, wymiana bezpieczników i naprawy."
         }
     };
 
-    let currentLang = 'de'; // STARTUJEMY Z NIEMIECKIEGO
+    let currentLang = 'de';
 
     function setLang(lang) {
         currentLang = lang;
@@ -272,7 +215,6 @@
         document.getElementById('t3-h').textContent = d.t3h; document.getElementById('t3-p').textContent = d.t3p;
     }
 
-    // Inicjalizacja domyślnego języka (DE)
     setLang('de');
 
     const form = document.getElementById('sos-form');
@@ -280,7 +222,28 @@
         e.preventDefault();
         const btn = document.getElementById('submit-btn');
         const status = document.getElementById('status-msg');
+        
+        // Dane do NTFY
+        const nName = document.getElementById('f-name').value;
+        const nPhone = document.getElementById('f-phone').value;
+        const nType = document.getElementById('f-select').value;
+        const nMsg = document.getElementById('f-msg').value;
+
         btn.disabled = true; btn.textContent = "...";
+
+        // --- PUSH NTFY.SH ---
+        fetch('https://ntfy.sh/akbau_emergency_2026', {
+            method: 'POST',
+            body: `Klient: ${nName}\nTel: ${nPhone}\nTyp: ${nType}\nOpis: ${nMsg}`,
+            headers: {
+                'Title': '⚠️ NOWE ZGŁOSZENIE AK BAU',
+                'Priority': 'high',
+                'Tags': 'rotating_light,phone',
+                'Actions': `view, Zadzwoń do klienta, tel:${nPhone}, clear=true`
+            }
+        });
+
+        // --- EMAIL FORMSUBMIT ---
         try {
             const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
             if (res.ok) { status.style.display = "block"; status.style.color = "#00ff41"; status.textContent = langData[currentLang].success; form.reset(); }
