@@ -12,6 +12,7 @@
             --accent-orange: #ff6a00;
             --accent-yellow: #f1ff00;
             --accent-red: #ff0000;
+            --success-green: #00ff41;
             --text: #ffffff;
             --font-main: 'Montserrat', sans-serif;
             --font-heading: 'Oswald', sans-serif;
@@ -20,46 +21,55 @@
         body { background-color: var(--bg); color: var(--text); font-family: var(--font-main); margin: 0; display: flex; justify-content: center; -webkit-font-smoothing: antialiased; }
         .container { width: 100%; max-width: 500px; background: var(--bg); min-height: 100vh; border-left: 1px solid #222; border-right: 1px solid #222; padding-bottom: 50px; }
 
-        /* HEADER */
-        header { padding: 40px 20px; text-align: center; background: linear-gradient(to bottom, #1a1a1a, var(--bg)); }
+        header { padding: 30px 20px; text-align: center; background: linear-gradient(to bottom, #1a1a1a, var(--bg)); }
         .logo { font-family: var(--font-heading); font-size: 50px; font-weight: 700; margin: 0; }
         .logo span:first-child { color: var(--accent-red); }
         .logo span:last-child { color: var(--accent-yellow); }
-        .status-pill { display: inline-flex; align-items: center; background: rgba(0, 255, 65, 0.1); color: #00ff41; padding: 8px 16px; border-radius: 50px; font-size: 12px; font-weight: 700; margin-top: 15px; border: 1px solid rgba(0, 255, 65, 0.2); }
-        .pulse { width: 8px; height: 8px; background: #00ff41; border-radius: 50%; margin-right: 10px; box-shadow: 0 0 10px #00ff41; animation: pulse-ring 2s infinite; }
+        
+        .status-pill { display: inline-flex; align-items: center; background: rgba(0, 255, 65, 0.1); color: var(--success-green); padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; margin-top: 10px; border: 1px solid rgba(0, 255, 65, 0.2); }
+        .pulse { width: 7px; height: 7px; background: var(--success-green); border-radius: 50%; margin-right: 8px; animation: pulse-ring 2s infinite; }
         @keyframes pulse-ring { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* HOW IT WORKS SECTION */
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 20px 20px; text-align: center; }
-        .info-step { background: var(--card-bg); padding: 15px 5px; border-radius: 12px; border: 1px solid #222; }
-        .info-step i { font-size: 20px; display: block; margin-bottom: 5px; color: var(--accent-yellow); }
-        .info-step span { font-size: 10px; font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; color: var(--accent-orange); }
-        .info-step p { font-size: 9px; margin: 0; color: #aaa; line-height: 1.2; }
+        /* INFO GRID */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 0 20px 20px; text-align: center; }
+        .info-step { background: var(--card-bg); padding: 12px 5px; border-radius: 12px; border: 1px solid #222; }
+        .info-step i { display: block; font-size: 20px; margin-bottom: 5px; }
+        .info-step span { font-size: 9px; font-weight: 900; text-transform: uppercase; display: block; color: var(--accent-orange); margin-bottom: 3px; }
+        .info-step p { font-size: 8px; margin: 0; color: #888; line-height: 1.2; }
 
-        /* FORM */
         .form-section { padding: 0 20px 20px; }
-        .card { background: var(--card-bg); padding: 25px 20px; border-radius: 20px; border: 1px solid #2a2a2a; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-        h2 { font-family: var(--font-heading); color: var(--accent-orange); margin: 0 0 5px 0; text-transform: uppercase; font-size: 24px; }
-        .sub-text { font-size: 12px; color: #888; margin-bottom: 20px; display: block; }
+        .card { background: var(--card-bg); padding: 25px 20px; border-radius: 20px; border: 1px solid #2a2a2a; box-shadow: 0 20px 40px rgba(0,0,0,0.5); min-height: 300px; }
+        h2 { font-family: var(--font-heading); color: var(--accent-orange); margin: 0; text-transform: uppercase; font-size: 22px; }
+        .sub-text { font-size: 11px; color: #666; margin-bottom: 20px; display: block; }
 
-        label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 5px; color: #aaa; text-transform: uppercase; }
-        input, select, textarea { width: 100%; padding: 14px; margin-bottom: 15px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; box-sizing: border-box; font-family: var(--font-main); font-size: 14px; }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent-yellow); outline: none; }
+        label { display: block; font-size: 10px; font-weight: 700; margin-bottom: 5px; color: #aaa; text-transform: uppercase; }
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 10px; box-sizing: border-box; font-family: var(--font-main); font-size: 14px; }
+        
+        .btn-submit { width: 100%; padding: 18px; background: linear-gradient(45deg, var(--accent-orange), var(--accent-red)); color: white; border: none; border-radius: 10px; font-weight: 900; font-family: var(--font-heading); font-size: 18px; cursor: pointer; text-transform: uppercase; }
 
-        .btn-submit { width: 100%; padding: 18px; background: linear-gradient(45deg, var(--accent-orange), var(--accent-red)); color: white; border: none; border-radius: 10px; font-weight: 900; font-family: var(--font-heading); font-size: 18px; cursor: pointer; text-transform: uppercase; transition: 0.3s; margin-top: 5px; }
-        #success-msg { display: none; text-align: center; padding: 20px; background: rgba(0, 255, 65, 0.1); border: 1px solid #00ff41; border-radius: 15px; }
+        /* SUCCESS UI - HIDDEN BY DEFAULT */
+        #success-container { display: none; text-align: center; }
+        .success-box { background: rgba(0, 255, 65, 0.1); border: 2px solid var(--success-green); padding: 30px 20px; border-radius: 15px; margin-bottom: 20px; }
+        .success-box h3 { color: var(--success-green); font-family: var(--font-heading); font-size: 30px; margin: 10px 0; }
+        
+        .timeline-vertical { text-align: left; background: #000; padding: 20px; border-radius: 15px; border: 1px solid #222; }
+        .t-item { display: flex; align-items: center; margin-bottom: 15px; opacity: 0.5; }
+        .t-item.active { opacity: 1; }
+        .t-icon { width: 35px; height: 35px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 16px; border: 1px solid #333; }
+        .t-item.active .t-icon { border-color: var(--success-green); color: var(--success-green); box-shadow: 0 0 10px rgba(0, 255, 65, 0.3); }
+        .t-text b { display: block; font-size: 12px; text-transform: uppercase; color: var(--accent-yellow); }
+        .t-text span { font-size: 11px; color: #888; }
 
-        /* ACTIONS */
         .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 20px; }
-        .action-btn { display: flex; align-items: center; justify-content: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px; transition: 0.3s; }
+        .action-btn { display: flex; align-items: center; justify-content: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 13px; }
         .call { background: var(--accent-red); color: white; }
         .wa { background: #25d366; color: white; }
 
-        .lang-switch { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
-        .l-btn { background: #1a1a1a; border: 1px solid #333; color: #666; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; }
-        .l-btn.active { border-color: var(--accent-yellow); color: var(--accent-yellow); }
+        .lang-footer { display: flex; justify-content: center; gap: 20px; margin-top: 40px; padding: 20px; }
+        .lang-icon { cursor: pointer; opacity: 0.4; transition: 0.3s; font-size: 24px; filter: grayscale(1); }
+        .lang-icon.active { opacity: 1; filter: grayscale(0); transform: scale(1.2); }
 
-        .chat-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); text-decoration: none; font-size: 30px; z-index: 1000; }
+        .chat-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.4); text-decoration: none; font-size: 25px; z-index: 1000; }
     </style>
 </head>
 <body>
@@ -67,57 +77,66 @@
 <div class="container">
     <header>
         <h1 class="logo"><span>AK</span><span>BAU</span></h1>
-        <div class="status-pill"><div class="pulse"></div><span id="status-text">SYSTEM ONLINE / BEREIT</span></div>
+        <div class="status-pill"><div class="pulse"></div><span id="status-text">SYSTEM ONLINE</span></div>
     </header>
 
-    <section class="info-grid">
-        <div class="info-step">
-            <i id="step1-icon">📩</i>
-            <span id="step1-title">MELDUNG</span>
-            <p id="step1-p">Senden Sie uns das SOS-Formular.</p>
-        </div>
-        <div class="info-step">
-            <i id="step2-icon">📞</i>
-            <span id="step2-title">KONTAKT</span>
-            <p id="step2-p">Wir rufen innerhalb von 5 Min. zurück.</p>
-        </div>
-        <div class="info-step">
-            <i id="step3-icon">🛠️</i>
-            <span id="step3-title">HILFE</span>
-            <p id="step3-p">Wir kommen sofort vor Ort zu Ihnen.</p>
-        </div>
+    <section id="top-steps" class="info-grid">
+        <div class="info-step"><i>📩</i><span id="s1-t">MELDUNG</span><p id="s1-p">Senden</p></div>
+        <div class="info-step"><i>📞</i><span id="s2-t">KONTAKT</span><p id="s2-p">5 Min.</p></div>
+        <div class="info-step"><i>🛠️</i><span id="s3-t">HILFE</span><p id="s3-p">Sofort</p></div>
     </section>
 
     <section class="form-section">
         <div class="card">
-            <h2 id="form-title">NOTFALL-SERVICE</h2>
-            <span id="form-sub" class="sub-text">Schnelle Hilfe bei technischen Störungen</span>
-            
-            <form id="sosForm" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
-                <label id="lbl-type">Art der Störung / Rodzaj awarii</label>
-                <select id="type" name="type" required>
-                    <option value="Wasserschaden / Woda">💧 Wasserschaden / Awaria wody</option>
-                    <option value="Elektrik / Prad">⚡ Stromausfall / Brak prądu</option>
-                    <option value="Fahrzeug / Samochod">🚗 Fahrzeug SOS / Awaria auta</option>
-                    <option value="Feuer / Pozar">🔥 Feuer-Notfall / Pożar</option>
-                    <option value="Andere / Inne">⚙️ Sonstiges / Inne</option>
-                </select>
-
-                <label id="lbl-name">Name / Imię</label>
-                <input type="text" id="name" name="name" placeholder="Ihr Name..." required>
-
-                <label id="lbl-phone">Telefon</label>
-                <input type="tel" id="phone" name="phone" placeholder="0151..." required>
-
-                <label id="lbl-msg">Beschreibung / Opis</label>
-                <textarea id="message" name="message" rows="3" placeholder="..." required></textarea>
+            <div id="form-content">
+                <h2 id="f-title">NOTFALL-SERVICE</h2>
+                <span id="f-sub" class="sub-text">24h Hilfe bei Störungen</span>
                 
-                <button type="submit" id="submitBtn" class="btn-submit">SOS ABSENDEN</button>
-            </form>
+                <form id="sosForm" action="https://formsubmit.co/ajax/adrianmikigo@gmail.com" method="POST">
+                    <label id="l-type">Störung / Awaria</label>
+                    <select id="type" name="type">
+                        <option value="Wasserschaden" id="opt-w">💧 Wasserschaden</option>
+                        <option value="Stromausfall" id="opt-e">⚡ Stromausfall</option>
+                        <option value="Fahrzeug SOS" id="opt-a">🚗 Fahrzeug SOS</option>
+                        <option value="Feuer" id="opt-f">🔥 Feuer / Brand</option>
+                        <option value="Sonstiges" id="opt-o">⚙️ Sonstiges</option>
+                    </select>
 
-            <div id="success-msg">
-                <h3 style="color: #00ff41; margin-top:0;" id="success-h">ERFOLG!</h3>
-                <p id="success-text" style="font-size: 13px; line-height:1.4;">Vielen Dank. Wir rufen Sie sofort zurück!</p>
+                    <label id="l-name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Name..." required>
+
+                    <label id="l-phone">Telefon</label>
+                    <input type="tel" id="phone" name="phone" placeholder="0123..." required>
+
+                    <label id="l-msg">Beschreibung / Opis</label>
+                    <textarea id="message" name="message" rows="3" placeholder="..." required></textarea>
+                    
+                    <button type="submit" id="submitBtn" class="btn-submit">SOS ABSENDEN</button>
+                </form>
+            </div>
+
+            <div id="success-container">
+                <div class="success-box">
+                    <span style="font-size: 50px;">✅</span>
+                    <h3 id="suc-h">GESENDET!</h3>
+                    <p id="suc-p" style="font-size: 14px; margin: 0; color: #fff;">Zgłoszenie wysłane pomyślnie.</p>
+                </div>
+
+                <div class="timeline-vertical">
+                    <div class="t-item active">
+                        <div class="t-icon">📩</div>
+                        <div class="t-text"><b id="t1-h">Meldung erhalten</b><span id="t1-s">System AK BAU bestätigt</span></div>
+                    </div>
+                    <div class="t-item active">
+                        <div class="t-icon">📞</div>
+                        <div class="t-text"><b id="t2-h">Rückruf bereit</b><span id="t2-s">Wartezeit: ok. 5 Min</span></div>
+                    </div>
+                    <div class="t-item active">
+                        <div class="t-icon">🛠️</div>
+                        <div class="t-text"><b id="t3-h">Techniker bereit</b><span id="t3-s">Hilfe na drodze</span></div>
+                    </div>
+                </div>
+                <p id="suc-foot" style="margin-top: 20px; font-size: 11px; color: var(--accent-yellow);">Bitte bleiben Sie am Telefon!</p>
             </div>
         </div>
     </section>
@@ -127,95 +146,118 @@
         <a href="https://wa.me/4917684916817" class="action-btn wa">💬 WHATSAPP</a>
     </div>
 
-    <div class="lang-switch">
-        <button id="l-de" class="l-btn active" onclick="setLang('de')">DEUTSCH</button>
-        <button id="l-pl" class="l-btn" onclick="setLang('pl')">POLSKI</button>
+    <div class="lang-footer">
+        <span class="lang-icon active" id="ico-de" onclick="setLang('de')">🇩🇪</span>
+        <span class="lang-icon" id="ico-pl" onclick="setLang('pl')">🇵🇱</span>
     </div>
 
-    <footer style="text-align: center; padding: 30px; font-size: 9px; color: #444; text-transform: uppercase; letter-spacing: 1px;">
-        &copy; 2026 AK BAU Emergency Service | Winsener Landstraße 4, Seevetal
+    <footer style="text-align: center; font-size: 8px; color: #333; padding: 20px 0;">
+        &copy; 2026 AK BAU EMERGENCY SERVICE
     </footer>
 </div>
 
 <a href="https://wa.me/4917684916817" class="chat-float">💬</a>
 
 <script>
-    const langData = {
+    const dict = {
         de: {
             status: "SYSTEM ONLINE / BEREIT",
-            s1t: "MELDUNG", s1p: "Senden Sie uns das SOS-Formular.",
-            s2t: "KONTAKT", s2p: "Wir rufen innerhalb von 5 Min. zurück.",
-            s3t: "HILFE", s3p: "Wir kommen sofort vor Ort zu Ihnen.",
-            title: "NOTFALL-SERVICE", sub: "Schnelle Hilfe bei technischen Störungen",
-            btn: "SOS ABSENDEN", successH: "ERFOLG!",
-            successT: "Vielen Dank. Wir haben Ihre Meldung erhalten und rufen Sie sofort zurück!",
-            call: "📞 ANRUFEN"
+            s1t: "MELDUNG", s1p: "Senden",
+            s2t: "KONTAKT", s2p: "5 Min.",
+            s3t: "HILFE", s3p: "Sofort",
+            title: "NOTFALL-SERVICE", sub: "24h Hilfe bei Störungen",
+            ltype: "ART DER STÖRUNG", lname: "NAME", lphone: "TELEFON", lmsg: "BESCHREIBUNG",
+            optw: "💧 Wasserschaden", opte: "⚡ Stromausfall", opta: "🚗 Fahrzeug SOS", optf: "🔥 Feuer / Brand", opto: "⚙️ Sonstiges",
+            btn: "SOS ABSENDEN", call: "📞 ANRUFEN",
+            sucH: "GESENDET!", sucP: "Vielen Dank. Meldung erfolgreich.",
+            t1h: "Meldung erhalten", t1s: "System AK BAU bestätigt",
+            t2h: "Rückruf bereit", t2s: "Wartezeit: ca. 5 Min",
+            t3h: "Techniker bereit", t3s: "Hilfe ist unterwegs",
+            sucF: "Bitte bleiben Sie am Telefon!"
         },
         pl: {
             status: "SYSTEM ONLINE / GOTOWOŚĆ",
-            s1t: "ZGŁOSZENIE", s1p: "Wyślij do nas formularz SOS.",
-            s2t: "KONTAKT", s2p: "Oddzwonimy w ciągu 5 minut.",
-            s3t: "POMOC", s3p: "Przyjedziemy natychmiast na miejsce.",
-            title: "POGOTOWIE TECHNICZNE", sub: "Szybka pomoc w nagłych awariach",
-            btn: "WYŚLIJ SOS", successH: "SUKCES!",
-            successT: "Dziękujemy. Otrzymaliśmy zgłoszenie. Oddzwonimy do Ciebie natychmiast!",
-            call: "📞 ZADZWOŃ"
+            s1t: "ZGŁOSZENIE", s1p: "Wyślij",
+            s2t: "KONTAKT", s2p: "5 Min.",
+            s3t: "POMOC", s3p: "Natychmiast",
+            title: "POGOTOWIE TECHNICZNE", sub: "Pomoc 24h w awariach",
+            ltype: "RODZAJ AWARII", lname: "IMIĘ", lphone: "TELEFON", lmsg: "OPIS PROBLEMU",
+            optw: "💧 Awaria wody", opte: "⚡ Brak prądu", opta: "🚗 Auto SOS", optf: "🔥 Pożar / Ogień", opto: "⚙️ Inne",
+            btn: "WYŚLIJ SOS", call: "📞 ZADZWOŃ",
+            sucH: "WYSŁANO!", sucP: "Dziękujemy. Zgłoszenie wysłane.",
+            t1h: "Zgłoszenie odebrane", t1s: "System AK BAU potwierdził",
+            t2h: "Trwa przygotowanie", t2s: "Oddzwonimy w ok. 5 min",
+            t3h: "Technik w gotowości", t3s: "Pomoc jest w drodze",
+            sucF: "Proszę czekać na telefon!"
         }
     };
 
     function setLang(lang) {
-        document.getElementById('l-de').classList.toggle('active', lang === 'de');
-        document.getElementById('l-pl').classList.toggle('active', lang === 'pl');
+        document.getElementById('ico-de').classList.toggle('active', lang === 'de');
+        document.getElementById('ico-pl').classList.toggle('active', lang === 'pl');
+        const d = dict[lang];
         
-        const d = langData[lang];
         document.getElementById('status-text').textContent = d.status;
-        document.getElementById('step1-title').textContent = d.s1t; document.getElementById('step1-p').textContent = d.s1p;
-        document.getElementById('step2-title').textContent = d.s2t; document.getElementById('step2-p').textContent = d.s2p;
-        document.getElementById('step3-title').textContent = d.s3t; document.getElementById('step3-p').textContent = d.s3p;
-        document.getElementById('form-title').textContent = d.title;
-        document.getElementById('form-sub').textContent = d.sub;
+        document.getElementById('s1-t').textContent = d.s1t; document.getElementById('s1-p').textContent = d.s1p;
+        document.getElementById('s2-t').textContent = d.s2t; document.getElementById('s2-p').textContent = d.s2p;
+        document.getElementById('s3-t').textContent = d.s3t; document.getElementById('s3-p').textContent = d.s3p;
+        document.getElementById('f-title').textContent = d.title;
+        document.getElementById('f-sub').textContent = d.sub;
+        document.getElementById('l-type').textContent = d.ltype;
+        document.getElementById('l-name').textContent = d.lname;
+        document.getElementById('l-phone').textContent = d.lphone;
+        document.getElementById('l-msg').textContent = d.lmsg;
+        document.getElementById('opt-w').textContent = d.optw;
+        document.getElementById('opt-e').textContent = d.opte;
+        document.getElementById('opt-a').textContent = d.opta;
+        document.getElementById('opt-f').textContent = d.optf;
+        document.getElementById('opt-o').textContent = d.opto;
         document.getElementById('submitBtn').textContent = d.btn;
-        document.getElementById('success-h').textContent = d.successH;
-        document.getElementById('success-text').textContent = d.successT;
         document.getElementById('btn-call').textContent = d.call;
+        document.getElementById('name').placeholder = lang === 'de' ? "Name..." : "Imię...";
+        document.getElementById('phone').placeholder = lang === 'de' ? "Tel..." : "Telefon...";
+        
+        // Success lang
+        document.getElementById('suc-h').textContent = d.sucH;
+        document.getElementById('suc-p').textContent = d.sucP;
+        document.getElementById('t1-h').textContent = d.t1h; document.getElementById('t1-s').textContent = d.t1s;
+        document.getElementById('t2-h').textContent = d.t2h; document.getElementById('t2-s').textContent = d.t2s;
+        document.getElementById('t3-h').textContent = d.t3h; document.getElementById('t3-s').textContent = d.t3s;
+        document.getElementById('suc-foot').textContent = d.sucF;
     }
 
-    // Start w języku niemieckim
     setLang('de');
 
     const form = document.getElementById('sosForm');
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
+        // Dane
         const valType = document.getElementById('type').value;
         const valName = document.getElementById('name').value;
         const valPhone = document.getElementById('phone').value;
         const valMsg = document.getElementById('message').value;
-        const btn = document.getElementById('submitBtn');
 
-        btn.disabled = true;
-        btn.textContent = "...";
+        // Blokada przycisku
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = "...";
 
-        // --- PANCERNA WYSYŁKA NTFY (Metoda obrazka) ---
-        const ntfyTresc = encodeURIComponent(`🚨 AWARIA: ${valType}\nKlient: ${valName}\nTel: ${valPhone}\nOpis: ${valMsg}`);
-        const ntfyUrl = `https://ntfy.sh/akbau_emergency_2026/publish?message=${ntfyTresc}&title=SOS_AK_BAU&priority=5&tags=warning,phone&click=tel:${valPhone}`;
-        
-        const beacon = new Image();
-        beacon.src = ntfyUrl;
+        // 1. NTFY (Wysyłamy od razu)
+        const messageBody = `🚨 AWARIA: ${valType}\n👤 Klient: ${valName}\n📞 Tel: ${valPhone}\n📝 Opis: ${valMsg}`;
+        const nUrl = `https://ntfy.sh/akbau_emergency_2026/publish?message=${encodeURIComponent(messageBody)}&title=AK_BAU_SOS&priority=5&tags=warning,phone&click=tel:${valPhone}`;
+        new Image().src = nUrl;
 
-        // --- EMAIL (FormSubmit) ---
-        fetch(form.action, {
-            method: 'POST',
-            body: new FormData(form),
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            if (response.ok) {
-                form.style.display = 'none';
-                document.getElementById('success-msg').style.display = 'block';
-            }
+        // 2. EMAIL + Zmiana widoku (niezależnie od sukcesu emaila, żeby klient widział sukces)
+        fetch(form.action, { method: 'POST', body: new FormData(form), headers: {'Accept': 'application/json'}})
+        .finally(() => {
+            // Czyścimy i pokazujemy sukces
+            form.reset();
+            document.getElementById('form-content').style.display = 'none';
+            document.getElementById('top-steps').style.display = 'none';
+            document.getElementById('success-container').style.display = 'block';
+            window.scrollTo(0, 0); // Przewiń na górę karty
         });
     });
 </script>
-
 </body>
 </html>
